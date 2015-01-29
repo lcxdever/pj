@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/main/resources/properties/bonecp-jdbc.properties=UTF-8
+encoding//src/main/resources/properties/c3p0-jdbc.properties=UTF-8
+encoding//src/main/resources/properties/log4j.properties=UTF-8

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- JDBC模板 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+<!-- 	 <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+	    <property name="driverClass" value="${postgis.driverClass}" />
+	    <property name="jdbcUrl" value="${postgis.driverClass}" />
+	    <property name="username" value="${postgis.username}"/>
+	    <property name="password" value="${postgis.password}"/>
+	    <property name="idleConnectionTestPeriod" value="${postgis.idleConnectionTestPeriod}"/>
+	    <property name="idleMaxAge" value="${postgis.idleMaxAge}"/>
+	    <property name="maxConnectionsPerPartition" value="${postgis.maxConnectionsPerPartition}"/>
+	    <property name="minConnectionsPerPartition" value="${postgis.minConnectionsPerPartition}"/>
+	    <property name="partitionCount" value="${postgis.partitionCount}"/>
+	    <property name="acquireIncrement" value="${postgis.acquireIncrement}"/>
+	 </bean> -->
+	 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${postgis.driverClass}" />
+		<property name="jdbcUrl" value="${postgis.jdbcUrl}" />
+		<property name="user" value="${postgis.username}"></property>
+		<property name="password" value="${postgis.password}"></property>
+		<property name="minPoolSize" value="${postgis.miniPoolSize}" />
+		<property name="maxPoolSize" value="${postgis.maxPoolSize}" />
+		<property name="initialPoolSize" value="${postgis.initialPoolSize}" />
+		<property name="maxIdleTime" value="${postgis.maxIdleTime}" />
+		<property name="acquireIncrement" value="${postgis.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${postgis.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${postgis.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${postgis.testConnectionOnCheckin}" />
+		<property name="testConnectionOnCheckout" value="${postgis.testConnectionOnCheckout}" />
+		<property name="autoCommitOnClose" value="${postgis.autoCommitOnClose}" />
+		<property name="idleConnectionTestPeriod" value="${postgis.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${postgis.checkoutTimeout}" />
+		<property name="numHelperThreads" value="${postgis.numHelperThreads}" />
+	</bean>
+</beans>
