@@ -5,8 +5,8 @@
 	<!-- Module Description -->
 	<!-- =========================================================== -->
 
-	<groupId>com</groupId>
-	<artifactId>blackbread</artifactId>
+	<groupId>com.blackbread</groupId>
+	<artifactId>pj</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
