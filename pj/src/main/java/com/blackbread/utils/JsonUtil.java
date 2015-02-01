@@ -19,7 +19,7 @@ public class JsonUtil {
 		} catch (Exception e) {
 			logger.error("Unable to serialize to json: " + object, e);
 			return null;
-		}
+		} 
 	}
 
 	public static User userFromJson(String json) {

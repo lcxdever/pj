@@ -17,17 +17,22 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<!-- 开启代理模式 -->
-	<aop:aspectj-autoproxy />
-	<!-- 记录用户访问日志 -->
+	<!-- 开启代理模式
+	<aop:aspectj-autoproxy /> 
+	-->
+	<!-- 记录用户访问日志 
 	<mvc:interceptors>
 		<bean class="com.blackbread.interceptor.LogNDCInteceptor" />
 	</mvc:interceptors>
+	-->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<mvc:resources mapping="/frames/**" location="/frames/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
 	<!-- 解决乱码问题 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

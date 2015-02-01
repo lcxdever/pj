@@ -8,7 +8,7 @@ import com.blackbread.model.User;
 public interface UserDAO {
 	public void query();
 
-	public List<Map<String, Object>> list();
+	public List<User> list(int page);
 
 	public void add(final List<User> list);
 	

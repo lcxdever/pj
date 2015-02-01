@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.User;
 import com.blackbread.service.UserService;
@@ -35,25 +37,21 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@ResponseBody
-	@RequestMapping(value = "/list/{type}")
-	public String list(@PathVariable int type, HttpServletRequest request,
-			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		List<Map<String, Object>> list = userService.list(type);
-		String json = JsonUtil.jsonFromObject(list);
-//		for (Cookie cookie2 : request.getCookies()) {
-//			System.out.println(cookie2.getName() + ":" + cookie2.getValue());
-//		}
-		// response.addCookie(cookie);
-		return json;
+	@RequestMapping(value = "/list/{page}")
+	public ModelAndView list(@PathVariable int page,
+			HttpServletRequest request, HttpServletResponse response,
+			ModelMap modelMap) throws Exception {
+		List<User> list = userService.list(page);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("list", list);
+		return new ModelAndView("/pages/user/list", model);
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String save(@ModelAttribute("user") User user,
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public ModelAndView save(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
 		userService.insert(user);
-		return "success";
+		return new ModelAndView("/user/list/1", null);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

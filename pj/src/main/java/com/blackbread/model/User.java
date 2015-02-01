@@ -1,9 +1,15 @@
 package com.blackbread.model;
 
-public class User {
+import java.io.Serializable;
+import java.util.Date;
+
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String id;
-	private String username;
-	private String password;
+	private String userName;
+	private String passWord;
+	private Date createTime;
+	private String createUser;
 
 	public String getId() {
 		return id;
@@ -13,21 +19,36 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCrateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String crateUser) {
+		this.createUser = crateUser;
+	}
 
 }
