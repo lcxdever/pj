@@ -9,4 +9,8 @@ public interface UserService {
 	public void insert(User user);
 
 	public List<User> list(int page);
+
+	public void modify(User user);
+
+	public void delete(User user);
 }

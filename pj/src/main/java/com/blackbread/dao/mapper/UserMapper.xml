@@ -9,8 +9,7 @@
 		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="list" resultType="com.blackbread.model.User" parameterType="int">
-		SELECT
-		ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER
+		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER ORDER BY CREATETIME
 	</select>
 
 	<insert id="insert" parameterType="com.blackbread.model.User">
@@ -18,14 +17,20 @@
 		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER)
 		values(#{id},#{userName},#{passWord},#{createTime},#{createUser})
 	</insert>
+	<update id="modify" parameterType="com.blackbread.model.User">  
+	    UPDATE T_USER  
+	    <set>  
+	        <if test="userName != null">  
+	            USERNAME = #{userName},  
+	        </if>  
+	        <if test="passWord != null">  
+	            PASSWORD = #{passWord},  
+	        </if>  
+	    </set>  
+	    where ID = #{id}  
+	</update>  
 
-	<update id="update-user" parameterType="com.blackbread.model.User">
-		UPDATE USERS SET
-		USERNAME=#{userName},PASSWORD=#{password} WHERE UID=#{uid}
-	</update>
-
-	<delete id="delete-user" parameterType="int">
-		DELETE USERS WHERE
-		UID=#{id}
+	<delete id="delete" parameterType="com.blackbread.model.User">  
+		DELETE T_USER WHERE ID=#{id}
 	</delete>
 </mapper>  

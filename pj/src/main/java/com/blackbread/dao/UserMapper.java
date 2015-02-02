@@ -10,4 +10,8 @@ public interface UserMapper {
 	public List<User> list(int page);
 
 	public void insert(User user);
+
+	public void modify(User user);
+
+	public void delete(User user);
 }

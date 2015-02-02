@@ -15,8 +15,9 @@ import com.blackbread.utils.Coder;
 
 @Service
 public class UserServiceImp implements UserService {
-	
+
 	UserMapper userMapper;
+
 	@Autowired
 	public void setUserMapper(UserMapper userMapper) {
 		this.userMapper = userMapper;
@@ -32,6 +33,18 @@ public class UserServiceImp implements UserService {
 
 	public List<User> list(int page) {
 		return userMapper.list(page);
+	}
+
+	@Override
+	public void modify(User user) {
+		if (user.getPassWord() != null)
+			user.setPassWord(Coder.generatePassword(user.getPassWord()));
+		userMapper.modify(user);
+	}
+
+	@Override
+	public void delete(User user) {
+		userMapper.delete(user);
 	}
 
 }

@@ -107,7 +107,6 @@ public class Uploader {
                     }
                     this.title = new String(result.toString().getBytes(),"utf-8");
                     reader.close();  
-                    
 				}
 			}
 		} catch (SizeLimitExceededException e) {

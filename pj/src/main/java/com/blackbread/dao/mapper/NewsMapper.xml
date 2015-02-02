@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackbread.dao.NewsMapper">
+	<resultMap type="com.blackbread.model.News" id="BaseResultMap">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="CLOB" />
+		<result column="SUMMARY" property="summary" jdbcType="CLOB" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+		<result column="CREATEUSER" property="createUser " jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="FILENAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="ISHOT" property="isHot" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="list" resultType="com.blackbread.model.News" parameterType="int">
+		SELECT ID, NewsNAME, PASSWORD,CREATETIME,CREATENews FROM T_News ORDER BY CREATETIME
+	</select>
+	<insert id="insert" parameterType="com.blackbread.model.News">
+		insert into NEWS(ID,TITLE,CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT)
+		values(#{id},#{title},#{content},#{summary},#{createTime},#{createUser},#{url},#{fileName},#{type},#{isHot})
+	</insert>
+	<update id="modify" parameterType="com.blackbread.model.News">  
+	    UPDATE T_News  
+	    <set>  
+	        <if test="NewsName != null">  
+	            NewsNAME = #{NewsName},  
+	        </if>  
+	        <if test="passWord != null">  
+	            PASSWORD = #{passWord},  
+	        </if>  
+	    </set>  
+	    where ID = #{id}  
+	</update>  
+
+	<delete id="delete" parameterType="com.blackbread.model.News">  
+		DELETE T_News WHERE ID=#{id}
+	</delete>
+</mapper>  

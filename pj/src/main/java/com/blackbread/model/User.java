@@ -47,7 +47,7 @@ public class User implements Serializable {
 		return createUser;
 	}
 
-	public void setCreeateUser(String createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
