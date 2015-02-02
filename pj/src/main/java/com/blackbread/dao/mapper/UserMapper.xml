@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackbread.dao.UserMapper">
+	<resultMap type="com.blackbread.model.User" id="BaseResultMap">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="userName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="passWord" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="list" resultType="com.blackbread.model.User" parameterType="int">
+		SELECT
+		ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER
+	</select>
+
+	<insert id="insert" parameterType="com.blackbread.model.User">
+		insert into
+		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER)
+		values(#{id},#{userName},#{passWord},#{createTime},#{createUser})
+	</insert>
+
+	<update id="update-user" parameterType="com.blackbread.model.User">
+		UPDATE USERS SET
+		USERNAME=#{userName},PASSWORD=#{password} WHERE UID=#{uid}
+	</update>
+
+	<delete id="delete-user" parameterType="int">
+		DELETE USERS WHERE
+		UID=#{id}
+	</delete>
+</mapper>  

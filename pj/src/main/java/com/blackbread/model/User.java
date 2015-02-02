@@ -43,12 +43,12 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public String getCrateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(String crateUser) {
-		this.createUser = crateUser;
+	public void setCreeateUser(String createUser) {
+		this.createUser = createUser;
 	}
 
 }

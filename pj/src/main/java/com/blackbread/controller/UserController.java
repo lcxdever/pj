@@ -51,7 +51,7 @@ public class UserController {
 	public ModelAndView save(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
 		userService.insert(user);
-		return new ModelAndView("/user/list/1", null);
+		return new ModelAndView("redirect:/user/list/1", null);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

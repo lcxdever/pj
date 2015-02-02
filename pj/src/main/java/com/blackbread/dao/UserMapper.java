@@ -5,12 +5,9 @@ import java.util.Map;
 
 import com.blackbread.model.User;
 
-public interface UserDAO {
-	public void query();
+public interface UserMapper {
 
 	public List<User> list(int page);
 
-	public void add(final List<User> list);
-	
 	public void insert(User user);
 }

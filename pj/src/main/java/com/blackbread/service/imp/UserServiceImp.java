@@ -8,18 +8,18 @@ import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blackbread.dao.UserDAO;
+import com.blackbread.dao.UserMapper;
 import com.blackbread.model.User;
 import com.blackbread.service.UserService;
 import com.blackbread.utils.Coder;
 
 @Service
 public class UserServiceImp implements UserService {
+	
+	UserMapper userMapper;
 	@Autowired
-	UserDAO userDAO;
-
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
+	public void setUserMapper(UserMapper userMapper) {
+		this.userMapper = userMapper;
 	}
 
 	public void insert(User user) {
@@ -27,11 +27,11 @@ public class UserServiceImp implements UserService {
 		user.setCreateUser("张三");
 		user.setPassWord(Coder.generatePassword(user.getPassWord()));
 		user.setId(UUID.randomUUID().toString());
-		userDAO.insert(user);
+		userMapper.insert(user);
 	}
 
 	public List<User> list(int page) {
-		return userDAO.list(page);
+		return userMapper.list(page);
 	}
 
 }
