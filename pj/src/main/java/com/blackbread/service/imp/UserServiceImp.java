@@ -1,10 +1,12 @@
 package com.blackbread.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import org.aspectj.apache.bcel.classfile.Code;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.blackbread.dao.UserMapper;
 import com.blackbread.model.User;
 import com.blackbread.service.UserService;
 import com.blackbread.utils.Coder;
+import com.blackbread.utils.Pagination;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -31,8 +34,17 @@ public class UserServiceImp implements UserService {
 		userMapper.insert(user);
 	}
 
-	public List<User> list(int page) {
-		return userMapper.list(page);
+	public Pagination  query(Pagination pagination, User user) {
+		if (pagination == null)
+			pagination = new Pagination(1, 10000);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", pagination.getStart());
+		map.put("end", pagination.getEnd());
+		long totolCount = userMapper.count(map);
+		pagination.setTotalCount(totolCount);
+		List<User> list = userMapper.query(map);
+		pagination.setValuesList(list);
+		return pagination;
 	}
 
 	@Override

@@ -13,8 +13,13 @@
 		<result column="TYPE" property="type" jdbcType="INTEGER" />
 		<result column="ISHOT" property="isHot" jdbcType="INTEGER" />
 	</resultMap>
-	<select id="list" resultType="com.blackbread.model.News" parameterType="int">
-		SELECT ID, NewsNAME, PASSWORD,CREATETIME,CREATENews FROM T_News ORDER BY CREATETIME
+	<select id="query" resultType="com.blackbread.model.News"  parameterType="java.util.HashMap">
+	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
+		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS ORDER BY CREATETIME
+	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+	</select>
+	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
+		SELECT count(1) FROM NEWS
 	</select>
 	<insert id="insert" parameterType="com.blackbread.model.News">
 		insert into NEWS(ID,TITLE,CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT)

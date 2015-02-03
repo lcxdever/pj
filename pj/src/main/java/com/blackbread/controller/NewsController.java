@@ -1,7 +1,6 @@
 package com.blackbread.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.News;
 import com.blackbread.service.NewsService;
-import com.blackbread.utils.UploadFileUtil;
+import com.blackbread.utils.Pagination;
 
 @Controller
 @RequestMapping(value = "/news")
@@ -30,14 +29,15 @@ public class NewsController {
 	@Autowired
 	NewsService newsService;
 
-	@RequestMapping(value = "/list/{page}")
-	public ModelAndView list(@PathVariable int page,
-			HttpServletRequest request, HttpServletResponse response,
-			ModelMap modelMap) throws Exception {
-		List<News> list = newsService.list(page);
+	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
+	public ModelAndView list(@PathVariable int pageSize,@PathVariable int pageNo,
+			@ModelAttribute("news") News news, HttpServletRequest request,
+			HttpServletResponse response, ModelMap modelMap) throws Exception {
+		Pagination pagination=new Pagination(pageNo, pageSize);
+		pagination = newsService.query(pagination, news);
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("list", list);
-		return new ModelAndView("/pages/user/list", model);
+		model.put("pagination", pagination);
+		return new ModelAndView("/pages/news/list", model);
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

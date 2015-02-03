@@ -7,7 +7,9 @@ import com.blackbread.model.User;
 
 public interface UserMapper {
 
-	public List<User> list(int page);
+	public List<User> query(Map<String, Object> map);
+
+	public long count(Map<String, Object> map);
 
 	public void insert(User user);
 

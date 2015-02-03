@@ -1,7 +1,9 @@
 package com.blackbread.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.blackbread.dao.NewsMapper;
 import com.blackbread.model.News;
+import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
+import com.blackbread.utils.Pagination;
 import com.blackbread.utils.UploadFileUtil;
 
 @Service
@@ -19,6 +23,8 @@ public class NewsServiceImp implements NewsService {
 	NewsMapper newsMapper;
 
 	public void insert(MultipartFile file, News news, String path) {
+		if (news.getType() == 3)
+			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
 			String realFile = UploadFileUtil.saveFile(file, path + "upload");
 			news.setUrl("/upload/" + realFile);
@@ -34,8 +40,17 @@ public class NewsServiceImp implements NewsService {
 		newsMapper.insert(news);
 	}
 
-	public List<News> list(int page) {
-		return newsMapper.list(page);
+	public Pagination query(Pagination pagination, News news) {
+		if (pagination == null)
+			pagination = new Pagination(1, 10000);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", pagination.getStart());
+		map.put("end", pagination.getEnd());
+		long totolCount = newsMapper.count(map);
+		pagination.setTotalCount(totolCount);
+		List<News> list = newsMapper.query(map);
+		pagination.setValuesList(list);
+		return pagination;
 	}
 
 	@Override

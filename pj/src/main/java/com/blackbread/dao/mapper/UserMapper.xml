@@ -8,10 +8,14 @@
 		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
 		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
 	</resultMap>
-	<select id="list" resultType="com.blackbread.model.User" parameterType="int">
+	<select id="query" resultType="com.blackbread.model.User"  parameterType="java.util.HashMap">
+	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
 		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER ORDER BY CREATETIME
+	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
 	</select>
-
+	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
+		SELECT count(1) FROM T_USER ORDER BY CREATETIME
+	</select>
 	<insert id="insert" parameterType="com.blackbread.model.User">
 		insert into
 		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER)

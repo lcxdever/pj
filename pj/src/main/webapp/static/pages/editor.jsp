@@ -3,7 +3,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/frames/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/frames/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/frames/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/plain" id="myEditor" style="width:830px;height:260px;">
+<script type="text/plain" id="myEditor" style="width:830px;height:300px;">
 </script>
 <script type="text/javascript">
 var um = UM.getEditor('myEditor');

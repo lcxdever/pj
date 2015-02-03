@@ -11,7 +11,7 @@
   html,body{margin: 0px;padding: 0px}
   </style>
 </head>
-<body>
+<body onload="onLoad()">
 	<h1 style="width:200px; margin:10px auto 0px auto;">新闻添加</h1>
 	<div style="width: 1000px;margin: 20px auto;">
 		<form class="form-horizontal" role="form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/news/insert" onsubmit="return check();" name="form" method="POST">
@@ -24,14 +24,15 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
 		    <div class="col-sm-10" >
-		     <select class="form-control" name="type">
+		     <select class="form-control" name="type" id="typeSel" onchange="changeSel()">
 				  <option value="0">公司新闻</option>
 				  <option value="1">业务公告</option>
 				  <option value="2">制度规范</option>
+				  <option value="3">顶部图片</option>
 				</select>
 		    </div>
 		  </div>
-		  <div class="form-group">
+		  <div class="form-group" id="editorCont">
 		    <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
 		    <div class="col-sm-10" >
 		       <jsp:include page="/static/pages/editor.jsp"></jsp:include>
@@ -42,7 +43,7 @@
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-sm-2 control-label">附件</label>
 		    <div class="col-sm-10" >
-		      <input type="file" id="exampleInputFile" name="file">
+		      <input type="file" id="exampleInputFile" name="file" style="float: left"><span style="float:right;color: red;display: none" id="waring">只支持图片文件</span>
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -54,8 +55,21 @@
 	</div>
 </body>
 <script type="text/javascript">
+function onLoad(){
+	if($("#typeSel").val()==3)
+	changeSel();
+}
+function changeSel(){
+	if($("#typeSel").val()==3){
+		$("#editorCont").css("display","none");
+		$("#waring").css("display","block");
+	}
+	else{
+		$("#editorCont").css("display","block");
+		$("#waring").css("display","none");
+	}
+}
 function check(){
-	
 	var form=document.forms.form;
 	if(form.title.value==""){
 		alert("标题不能为空")
@@ -63,7 +77,7 @@ function check(){
 	}
 	var txt=UM.getEditor('myEditor').getContentTxt();
 	var cont=UM.getEditor('myEditor').getContent();
-	if(txt==""||cont==""){
+	if((txt==""||cont=="")&&$("#typeSel").val()!=3){
 		alert("内容不能为空")
 		return false;
 	}
