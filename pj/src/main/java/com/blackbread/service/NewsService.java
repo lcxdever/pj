@@ -10,7 +10,9 @@ public interface NewsService {
 
 	public Pagination query(Pagination pagination, News news);
 
-	public void modify(News news);
+	public void modify(MultipartFile file, News news, String path);
 
 	public void delete(News news);
+
+	public News queryByID(News news);
 }

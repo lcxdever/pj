@@ -14,6 +14,7 @@ import com.blackbread.dao.NewsMapper;
 import com.blackbread.model.News;
 import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
+import com.blackbread.utils.MapHelper;
 import com.blackbread.utils.Pagination;
 import com.blackbread.utils.UploadFileUtil;
 
@@ -23,7 +24,7 @@ public class NewsServiceImp implements NewsService {
 	NewsMapper newsMapper;
 
 	public void insert(MultipartFile file, News news, String path) {
-		if (news.getType() == 3)
+		if (news.getType() == 4)
 			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
 			String realFile = UploadFileUtil.saveFile(file, path + "upload");
@@ -43,7 +44,7 @@ public class NewsServiceImp implements NewsService {
 	public Pagination query(Pagination pagination, News news) {
 		if (pagination == null)
 			pagination = new Pagination(1, 10000);
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = MapHelper.Bean2Map(news);
 		map.put("start", pagination.getStart());
 		map.put("end", pagination.getEnd());
 		long totolCount = newsMapper.count(map);
@@ -54,13 +55,28 @@ public class NewsServiceImp implements NewsService {
 	}
 
 	@Override
-	public void modify(News news) {
+	public void modify(MultipartFile file, News news, String path) {
+		if (news.getType() == 4)
+			UploadFileUtil.filter(file.getOriginalFilename());
+		if (!file.isEmpty()) {
+			String realFile = UploadFileUtil.saveFile(file, path + "upload");
+			news.setUrl("/upload/" + realFile);
+			news.setFileName(file.getOriginalFilename());
+		} else {
+			news.setUrl("");
+			news.setFileName("");
+		}
 		newsMapper.modify(news);
 	}
 
 	@Override
 	public void delete(News news) {
 		newsMapper.delete(news);
+	}
+
+	@Override
+	public News queryByID(News news) {
+		return newsMapper.queryByID(news);
 	}
 
 }

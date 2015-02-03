@@ -16,4 +16,6 @@ public interface NewsMapper {
 	public void modify(News news);
 
 	public void delete(News news);
+
+	public News queryByID(News news);
 }

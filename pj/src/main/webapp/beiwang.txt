@@ -1,0 +1,3 @@
+.edui-scale{
+-webkit-box-sizing:content-box;border-box:content-box;-moz-box-sizing:content-box;
+}

@@ -9,6 +9,7 @@
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
  <style type="text/css">
   html,body{margin: 0px;padding: 0px}
+  -webkit-box-sizing:content-box;border-box:content-box;-moz-box-sizing:content-box;
   </style>
 </head>
 <body onload="onLoad()">
@@ -25,10 +26,10 @@
 		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
 		    <div class="col-sm-10" >
 		     <select class="form-control" name="type" id="typeSel" onchange="changeSel()">
-				  <option value="0">公司新闻</option>
-				  <option value="1">业务公告</option>
-				  <option value="2">制度规范</option>
-				  <option value="3">顶部图片</option>
+				  <option value="1">公司新闻</option>
+				  <option value="2">业务公告</option>
+				  <option value="3">制度规范</option>
+				  <option value="4">顶部图片</option>
 				</select>
 		    </div>
 		  </div>
@@ -56,11 +57,11 @@
 </body>
 <script type="text/javascript">
 function onLoad(){
-	if($("#typeSel").val()==3)
+	if($("#typeSel").val()==4)
 	changeSel();
 }
 function changeSel(){
-	if($("#typeSel").val()==3){
+	if($("#typeSel").val()==4){
 		$("#editorCont").css("display","none");
 		$("#waring").css("display","block");
 	}
@@ -77,7 +78,7 @@ function check(){
 	}
 	var txt=UM.getEditor('myEditor').getContentTxt();
 	var cont=UM.getEditor('myEditor').getContent();
-	if((txt==""||cont=="")&&$("#typeSel").val()!=3){
+	if((txt==""||cont=="")&&$("#typeSel").val()!=4){
 		alert("内容不能为空")
 		return false;
 	}

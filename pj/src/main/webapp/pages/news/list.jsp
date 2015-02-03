@@ -15,7 +15,7 @@
 <title>新闻列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body>
+<body onload="init()">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
@@ -25,10 +25,18 @@
 					<li class="active"><a href="<%=basePath%>news/list/10/1">新闻管理</a></li>
 					<li><a href="javascript:void(0)">关于系统</a></li>
 				</ul>
-
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/user/add.jsp'">新建用户</button>
+				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp'">新建新闻</button>
+				<div class="col-sm-2"  style="float: right;margin-right: 30px" >
+					<select class="form-control" name="type" id="typeSel" onchange="changeSel()">
+					  <option value="0">全部</option>
+					  <option value="1">公司新闻</option>
+					  <option value="2">业务公告</option>
+					  <option value="3">制度规范</option>
+					  <option value="4">顶部图片</option>
+					</select>
+				</div>
 				<h5 style="color: red;" class="text-center">${param.msg}</h5>
 				<table class="table table-bordered nth-child table-hover">
 						<thead>
@@ -47,9 +55,9 @@
 							<td>${news.title}</td>
 							<td>
 								 <c:choose>  
-					               <c:when test="${news.type==0}">公司新闻</c:when>  
-					               <c:when test="${news.type==1}">业务公告</c:when>  
-					               <c:when test="${news.type==2}">制度规范</c:when>  
+					               <c:when test="${news.type==1}">公司新闻</c:when>  
+					               <c:when test="${news.type==2}">业务公告</c:when>  
+					               <c:when test="${news.type==3}">制度规范</c:when>  
 					               <c:otherwise>顶部图片</c:otherwise>  
 					           </c:choose> 
 							</td>
@@ -85,36 +93,40 @@
 	</div>
 </body>
 <script type="text/javascript">
+	function init(){
+		 $("#typeSel").val('${type}');
+	}
+	function changeSel(){
+		page(1);
+	}
 	function page(pageNum){
-		var action ="<%=basePath%>user/list/10/"+pageNum;
+		var type=$("#typeSel").val();
+		var action ="<%=basePath%>news/list/10/"+pageNum;
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')
-	 //   var input1 = $("<input type='hidden' name='userName' />")
-	 //       input1.attr('value',10)
-	 //       form.append(input1)
+	    var input1 = $("<input type='hidden' name='type' />")
+	        input1.attr('value',type)
+	        form.append(input1)
 	        form.appendTo("body")
 	        form.css('display','none')
 	        form.submit()		
 	}
 	function modify(id,name){
-	var action = "<%=basePath%>pages/user/modify.jsp";
+	var action = "<%=basePath%>news/query4modify";
     var form = $("<form></form>")
         form.attr('action',action)
         form.attr('method','post')
     var input1 = $("<input type='hidden' name='id' />")
         input1.attr('value',id)
-    var input2 = $("<input type='hidden' name='userName' />")
-        input2.attr('value',name)
         form.append(input1)
-        form.append(input2)
         form.appendTo("body")
         form.css('display','none')
         form.submit()
 	}
 	function del(id){
 		if(window.confirm("您确认要删除吗")){
-		var action = "<%=basePath%>user/delete";
+		var action = "<%=basePath%>news/delete";
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')

@@ -37,6 +37,7 @@ public class NewsController {
 		pagination = newsService.query(pagination, news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("pagination", pagination);
+		model.put("type", news.getType());
 		return new ModelAndView("/pages/news/list", model);
 	}
 
@@ -49,24 +50,36 @@ public class NewsController {
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/user/list/1", model);
+		return new ModelAndView("redirect:/news/list/10/1", model);
+	}
+	
+	@RequestMapping(value = "/query4modify", method = RequestMethod.POST)
+	public ModelAndView query4modify(@ModelAttribute("news") News news,
+			HttpServletRequest request, ModelMap modelMap) {
+		news=newsService.queryByID(news);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("news", news);
+		return new ModelAndView("/pages/news/modify", model);
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public ModelAndView modify(@ModelAttribute("user") News user,
-			HttpServletRequest request, ModelMap modelMap) {
-		newsService.modify(user);
+	public ModelAndView modify(
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@ModelAttribute("news") News news, HttpServletRequest request,
+			ModelMap modelMap) {
+		newsService.modify(file, news, request.getSession().getServletContext()
+				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("msg", "修改成功");
-		return new ModelAndView("redirect:/user/list/1", model);
+		model.put("msg", "添加成功");
+		return new ModelAndView("redirect:/news/list/10/1", model);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ModelAndView delete(@ModelAttribute("user") News user,
+	public ModelAndView delete(@ModelAttribute("news") News news,
 			HttpServletRequest request, ModelMap modelMap) {
-		newsService.delete(user);
+		newsService.delete(news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
-		return new ModelAndView("redirect:/user/list/1", model);
+		return new ModelAndView("redirect:/news/list/10/1", model);
 	}
 }

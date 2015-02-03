@@ -15,30 +15,51 @@
 	</resultMap>
 	<select id="query" resultType="com.blackbread.model.News"  parameterType="java.util.HashMap">
 	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
-		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS ORDER BY CREATETIME
-	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS where 1 = 1  
+		<if test="type != null and type!= 0">  
+       		 AND TYPE = #{type}  
+    	</if>  
+		ORDER BY CREATETIME) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
 	</select>
 	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
-		SELECT count(1) FROM NEWS
+		SELECT count(1) FROM NEWS where 1 = 1  
+		<if test="type != null and type!= ''">  
+       		 AND TYPE = #{type}  
+    	</if>  
+	</select>
+	<select id="queryByID" resultType="com.blackbread.model.News"  parameterType="com.blackbread.model.News">
+		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS WHERE ID=#{id}   
 	</select>
 	<insert id="insert" parameterType="com.blackbread.model.News">
 		insert into NEWS(ID,TITLE,CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT)
 		values(#{id},#{title},#{content},#{summary},#{createTime},#{createUser},#{url},#{fileName},#{type},#{isHot})
 	</insert>
 	<update id="modify" parameterType="com.blackbread.model.News">  
-	    UPDATE T_News  
+	    UPDATE NEWS  
 	    <set>  
-	        <if test="NewsName != null">  
-	            NewsNAME = #{NewsName},  
+	        <if test="title != null and title!=''">  
+	            TITLE = #{title},  
 	        </if>  
-	        <if test="passWord != null">  
-	            PASSWORD = #{passWord},  
-	        </if>  
+	         <if test="content != null and summary!=''">  
+	            CONTENT = #{content},  
+	        </if>
+	         <if test="summary != null and summary!=''">  
+	            SUMMARY = #{summary},  
+	        </if> 
+	         <if test="url != null and url !=''">  
+	            URL = #{url},  
+	        </if> 
+	         <if test="fileName != null and fileName !=''">  
+	            FILENAME = #{fileName},  
+	        </if>   
+	         <if test="isHot != null and isHot !=''">  
+	            ISHOT = #{isHot},  
+	        </if>
 	    </set>  
 	    where ID = #{id}  
 	</update>  
 
 	<delete id="delete" parameterType="com.blackbread.model.News">  
-		DELETE T_News WHERE ID=#{id}
+		DELETE NEWS WHERE ID=#{id}
 	</delete>
 </mapper>  

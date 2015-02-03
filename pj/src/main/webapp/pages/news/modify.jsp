@@ -5,50 +5,90 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>修改用户</title>
+<title>修改新闻</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
-
+<style type="text/css">
+html,body{margin: 0px;padding: 0px}
+.edui-scale{
+-webkit-box-sizing:content-box;border-box:content-box;-moz-box-sizing:content-box;
+}
+</style>
 </head>
-<body>
-	<h1 style="width:200px; margin:50px auto 0px auto;">修改用户</h1>
-	<div style="width: 600px;margin: 50px auto;">
-		<form role="form" action="<%=request.getContextPath()%>/user/modify" onsubmit="return check();" name="form" method="POST">
-			<input type="hidden" name="id" value="${param.id}">
-			<div class="form-group">
-				<label for="exampleInputEmail1">用户名</label> <input readonly="readonly"
-					  class="form-control" id="exampleInputEmail1" name="userName" value="${param.userName}"
-					placeholder="输入用户名">
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">密码</label> <input  name="passWord"
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="输入密码">
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">确认密码</label> <input name="passWordAgain"
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="再输入一次密码">
-			</div>
-			<button type="submit"  class="btn btn-default">提交</button>
+<body onload="init()">
+	<h1 style="width:200px; margin:10px auto 0px auto;">修改新闻</h1>
+	<div style="width: 1000px;margin: 20px auto;">
+		<form class="form-horizontal" role="form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/news/modify" onsubmit="return check();" name="form" method="POST">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+		    <div class="col-sm-10" >
+		      <input type="text" class="form-control" name="title" value='${news.title}' id="inputPassword3">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
+		    <div class="col-sm-10" >
+		     <select class="form-control" disabled="disabled" name="type" id="typeSel"  onchange="changeSel()">
+				  <option value="1">公司新闻</option>
+				  <option value="2">业务公告</option>
+				  <option value="3">制度规范</option>
+				  <option value="4">顶部图片</option>
+				</select>
+		    </div>
+		  </div>
+		  <div class="form-group" id="editorCont">
+		    <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+		    <div class="col-sm-10" >
+		       <jsp:include page="/static/pages/editor.jsp"></jsp:include>
+		       <input type="hidden" name="content">
+		       <input type="hidden" name="summary">
+		       <input type="hidden" name="id" value="${news.id}">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">附件</label>
+		    <div class="col-sm-10" >
+		      <input type="file" id="exampleInputFile" name="file" style="float: left"><span style="float:right;color: red;" >不选择文件则表示不修改</span><span style="float:right;color: red;display: none" id="waring">只支持图片文件</span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">提交</button>
+		    </div>
+		  </div>
 		</form>
 	</div>
 </body>
 <script type="text/javascript">
+function init(){
+	$("#typeSel").val('${news.type}');
+	if($("#typeSel").val()==4)
+	changeSel();
+	UM.getEditor('myEditor').setContent('${news.content}', false);
+}
+function changeSel(){
+	if($("#typeSel").val()==4){
+		$("#editorCont").css("display","none");
+		$("#waring").css("display","block");
+	}
+	else{
+		$("#editorCont").css("display","block");
+		$("#waring").css("display","none");
+	}
+}
 function check(){
-	var from=document.forms.form;
-	if(form.userName.value==""){
-		alert("用户名不可为空");
+	var form=document.forms.form;
+	if(form.title.value==""){
+		alert("标题不能为空")
 		return false;
 	}
-	if(from.passWord.value==""){
-		alert("密码不可为空");
+	var txt=UM.getEditor('myEditor').getContentTxt();
+	var cont=UM.getEditor('myEditor').getContent();
+	if((txt==""||cont=="")&&$("#typeSel").val()!=4){
+		alert("内容不能为空")
 		return false;
 	}
-	if(from.passWord.value!=from.passWordAgain.value)
-	{
-		alert("两次输入的密码不一致");
-		return false;
-	}
+	form.content.value=cont;
+	form.summary.value=txt;
 	return true;
 	
 }
