@@ -79,4 +79,15 @@ public class NewsServiceImp implements NewsService {
 		return newsMapper.queryByID(news);
 	}
 
+	@Override
+	public List<News> list(Pagination pagination, News news) {
+		if (pagination == null)
+			throw new RuntimeException("分页参数不能为空");
+		Map<String, Object> map = MapHelper.Bean2Map(news);
+		map.put("start", pagination.getStart());
+		map.put("end", pagination.getEnd());
+		List<News> list = newsMapper.query(map);
+		return list;
+	}
+
 }

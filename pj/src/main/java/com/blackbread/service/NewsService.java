@@ -1,5 +1,7 @@
 package com.blackbread.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackbread.model.News;
@@ -9,6 +11,8 @@ public interface NewsService {
 	public void insert(MultipartFile file, News news, String path);
 
 	public Pagination query(Pagination pagination, News news);
+	
+	public List<News> list(Pagination pagination, News news);
 
 	public void modify(MultipartFile file, News news, String path);
 
