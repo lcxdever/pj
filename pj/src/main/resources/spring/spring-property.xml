@@ -11,7 +11,6 @@
 		<property name="locations">
 			<list>
 				<!-- 数据库配置文件 -->
-				<!-- <value>classpath:properties/bonecp-jdbc.properties</value> -->
 				<value>classpath:properties/c3p0-jdbc.properties</value>
 			</list>
 		</property>

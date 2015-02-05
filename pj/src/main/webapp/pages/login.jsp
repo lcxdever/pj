@@ -19,11 +19,21 @@
 <title>高德支付财务管理-登录</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 <link href="<%=request.getContextPath()%>/static/css/signin.css" rel="stylesheet"/>
-
+<style type="text/css">
+*{padding:0; margin:0}
+	.languageSel{overflow: hidden;width: 60px;padding: 5px;font-size: 5px;line-height: 28px;margin-top: 5px}
+	.languageSel option{height: 20px;}
+	.languageSel option:hover {
+		background-color: #B1D2F4; 	
+	}
+</style>
 </head>
 <body>
 
-
+<select  multiple class="form-control languageSel" style="height: 50px">
+  <option value="ZHS" >中文</option>
+  <option value="US" >English</option>
+</select>
 	<div class="container">
 
 		<c:if test="${ status eq 'error' }">

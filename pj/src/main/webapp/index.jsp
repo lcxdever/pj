@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-ssfsff
 <jsp:include page="/static/pages/editor.jsp"></jsp:include>
 
 <button class="btn" onclick="getContent()">获得内容</button>&nbsp;

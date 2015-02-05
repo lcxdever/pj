@@ -49,23 +49,27 @@
          height: 350px;
          float: left;
      }
-    .login{
+    body{background: url("../static/images/top_bg.png") repeat-x;}
+    .top{width:1000px;height:110px;margin: auto;padding: 30px 30px 30px 0px}
+    .now{float: right;margin: 18px 10px 0px 0px}
+    .c_1{width: 1000px;height: 350px;}
+       .login{
     	width: 292px;
     	height: 350px;
     	background-color: #FFF;
     	float: right;
+    	position: relative;
     }
-    body{background: url("../static/images/top_bg.png") repeat-x;}
-    .top{width:1000px;height:110px;margin: auto;padding: 30px}
-    .now{float: right;margin: 18px 10px 0px 0px}
-    .c_1{width: 1000px;height: 350px;}
     .login_top{
     	height:46px;
     	background-image: url("../static/images/login_top.png");
     }
     .login_txt{color: #fff;margin-left: 50px;font-weight:600;line-height: 47px;font-size: 13px;}
-    .language_txt{color: #fff;margin-right: 0px;line-height: 47px;font-size: 13px;float: right;cursor: pointer;}
-    .place{margin-right: 10px;line-height: 47px;font-size: 13px;width:17px;float: right;cursor: pointer;}
+    .language_txt{color: #fff;margin-right:17px;line-height: 47px;font-size: 13px;float: right;cursor: pointer;}
+    .languageSel{display:none;overflow: hidden;width: 60px;padding: 5px;position: absolute;z-index: 100;right: 10px;top: 35px}
+	.languageSel option{height: 20px;font-size: 10px;}
+	.languageSel option:hover {background-color: #B1D2F4;}
+    .language_txt:hover .languageSel{display: block;}
     .login_mid{width: 236px;margin: auto;}
     .username{height: 35px;background-image: url("../static/images/username.png");margin-top: 10px;}
     .username input,.password input{width: 197px;float: right;border: none;height: 31px;margin-top: 1px;margin-right: 1px}
@@ -141,10 +145,16 @@
 			   -->
 			</div>
 			<div class="login">
+				
 				<div class="login_top">
 					<span class="login_txt">登录</span>
-					<span class="place">&nbsp;</span>
-					<span class="language_txt">中文</span>
+					<span class="place hot">&nbsp;</span>
+					<span class="language_txt hot"><span class="target_language">中文</span><span>&nbsp;&nbsp;&nbsp;</span>
+						<select  multiple class="form-control languageSel" style="height: 50px;font-size: 5px">
+						  <option value="ZHS"  >中文</option>
+						  <option value="US" >English</option>
+						</select>
+					</span>
 				</div>
 				<div class="login_mid">
 					<div class="username_txt">用户名:</div>
@@ -198,7 +208,7 @@
 			<div>
 				<p>COPYRIGHT © GOLDWIND.CN,ALL RIGHT RESERVED  新ICP备11003499 金风科技版权所有   联系电话：010-643213123-213</p>
 				<p>公司地址：北京市大兴区亦庄开发区康定街18号  北京金风科技    技术支持：东软慧聚软件有限公司</p>
-				<p>友情链接  |  友情链接 |  友情链接 |  友情链接 |  友情链接 |  友情链接 </p>
+				<p><a href="http://www.goldwind.cn" target="_BLANK">新疆金风科技股份有限公司</a>  |  <a href="http://www.etechwin.com.cn" target="_BLANK">北京天诚同创电气有限公司</a> |  <a href="http://www.bj-wind.com/" target="_BLANK">北京天源科创风电技术有限责任公司</a> |  <a href="http://www.tianrun.cn" target="_BLANK">北京天润新能投资有限公司</a> </p>
 			</div>
  			<img alt="" src="../static/images/2wei_10.png" style="float: right;">
 		</div>
@@ -216,8 +226,30 @@ function getTime(){
 	if(hour<10)hour="0"+hour;
 	if(mi<10)mi="0"+mi;
 	$(".now").html(date.getFullYear()+"-"+month+"-"+day+" "+hour+":"+mi);
-	setTimeout("getTime()",60000 )
 }
 getTime();
+window.setInterval("getTime()",60000 );
+var i18nConf={
+	"US":{
+		"title":"Sign in",
+		"language":"English",
+		"username":"Username:",
+		"password":"Password:"
+	},
+	"ZHS":{
+		"title":"登录",
+		"language":"中文",
+		"username":"用户名:",
+		"password":"口令:"
+	}
+}
+$(".languageSel").change(function(){
+	var language=$(".languageSel").val();
+	$(".login_txt").text(i18nConf[language].title);
+	$(".target_language").text(i18nConf[language].language);
+	$(".username_txt").text(i18nConf[language].username);
+	$(".password_txt").text(i18nConf[language].password);
+});
+
 </script>
 </html>
