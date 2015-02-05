@@ -25,7 +25,7 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
 		    <div class="col-sm-10" >
-		     <select class="form-control" name="type" id="typeSel" onchange="changeSel()">
+		     <select class="form-control" name="type"  id="typeSel" onchange="changeSel()">
 				  <option value="1">公司新闻</option>
 				  <option value="2">业务公告</option>
 				  <option value="3">制度规范</option>
@@ -38,7 +38,7 @@
 		    <div class="col-sm-10" >
 		       <jsp:include page="/static/pages/editor.jsp"></jsp:include>
 		       <input type="hidden" name="content">
-		       <input type="hidden" name="summary">
+		       <input type="hidden" name="onlyTxt">
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -57,6 +57,7 @@
 </body>
 <script type="text/javascript">
 function onLoad(){
+	$("#typeSel").val(${param.type})
 	if($("#typeSel").val()==4)
 	changeSel();
 }
@@ -76,6 +77,10 @@ function check(){
 		alert("标题不能为空")
 		return false;
 	}
+	if($("#typeSel").val()==null||$("#typeSel").val()=="null"||$("#typeSel").val()==""){
+		alert("类型不可为空");
+		return false;
+	}
 	var txt=UM.getEditor('myEditor').getContentTxt();
 	var cont=UM.getEditor('myEditor').getContent();
 	if((txt==""||cont=="")&&$("#typeSel").val()!=4){
@@ -83,7 +88,7 @@ function check(){
 		return false;
 	}
 	form.content.value=cont;
-	form.summary.value=txt;
+	form.onlyTxt.value=txt;
 	return true;
 	
 }

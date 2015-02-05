@@ -33,6 +33,7 @@
 	
 	<mvc:resources mapping="/frames/**" location="/frames/" />
 	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
 	<!-- 解决乱码问题 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

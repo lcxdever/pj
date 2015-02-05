@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新闻列表</title>
+<title>公司新闻列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
 <body onload="init()">
@@ -22,13 +22,16 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li ><a href="<%=basePath%>user/list/10/1">用户管理</a></li>
-					<li class="active"><a href="<%=basePath%>news/list/10/1">新闻管理</a></li>
+					<li class="active"><a href="<%=basePath%>news/list/10/1?type=1">新闻管理</a></li>
+					<li ><a href="<%=basePath%>news/list/10/1?type=2">公告管理</a></li>
+					<li ><a href="<%=basePath%>news/list/10/1?type=3">制度管理</a></li>
+					<li ><a href="<%=basePath%>news/list/10/1?type=4">顶部管理</a></li>
 					<li><a href="javascript:void(0)">关于系统</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp'">新建新闻</button>
-				<div class="col-sm-2"  style="float: right;margin-right: 30px" >
+				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp?type=1'">新建公司新闻</button>
+				<div class="col-sm-2"  style="float: right;margin-right: 30px;display: none" >
 					<select class="form-control" name="type" id="typeSel" onchange="changeSel()">
 					  <option value="0">全部</option>
 					  <option value="1">公司新闻</option>

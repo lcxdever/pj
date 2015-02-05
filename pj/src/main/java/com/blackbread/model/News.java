@@ -8,13 +8,16 @@ public class News implements Serializable {
 	private String id;
 	private String title;
 	private String content;
+	private String onlyTxt;
 	private String summary;
+	private String showPicUrl;
 	private Date createTime;
 	private String createUser;
 	private String url;//附件地址
 	private String fileName;
 	private int type;
 	private int isHot;
+	
 	public String getId() {
 		return id;
 	}
@@ -77,6 +80,18 @@ public class News implements Serializable {
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public String getOnlyTxt() {
+		return onlyTxt;
+	}
+	public void setOnlyTxt(String onlyTxt) {
+		this.onlyTxt = onlyTxt;
+	}
+	public String getShowPicUrl() {
+		return showPicUrl;
+	}
+	public void setShowPicUrl(String showPicUrl) {
+		this.showPicUrl = showPicUrl;
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.blackbread.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.blackbread.model.User;
 import com.blackbread.utils.Pagination;
 
@@ -14,4 +11,6 @@ public interface UserService {
 	public void modify(User user);
 
 	public void delete(User user);
+
+	public boolean login(User user);
 }

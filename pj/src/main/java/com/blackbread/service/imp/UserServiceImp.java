@@ -59,4 +59,11 @@ public class UserServiceImp implements UserService {
 		userMapper.delete(user);
 	}
 
+	@Override
+	public boolean login(User user) {
+		String passWord=user.getPassWord();
+		user=userMapper.queryByID(user);
+		return Coder.validatePassword(user.getPassWord(), passWord);
+	}
+
 }

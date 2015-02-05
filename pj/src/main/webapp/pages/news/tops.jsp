@@ -12,46 +12,63 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户列表</title>
+<title>顶部图片列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body>
+<body onload="init()">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="<%=basePath%>user/list/10/1">用户管理</a></li>
+					<li ><a href="<%=basePath%>user/list/10/1">用户管理</a></li>
 					<li ><a href="<%=basePath%>news/list/10/1?type=1">新闻管理</a></li>
 					<li ><a href="<%=basePath%>news/list/10/1?type=2">公告管理</a></li>
 					<li ><a href="<%=basePath%>news/list/10/1?type=3">制度管理</a></li>
-					<li ><a href="<%=basePath%>news/list/10/1?type=4">顶部管理</a></li>
+					<li class="active"><a href="<%=basePath%>news/list/10/1?type=4">顶部管理</a></li>
 					<li><a href="javascript:void(0)">关于系统</a></li>
 				</ul>
-
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/user/add.jsp'">新建用户</button>
+				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp?type=4'">新建顶部图片</button>
+				<div class="col-sm-2"  style="float: right;margin-right: 30px;display: none" >
+					<select class="form-control" name="type" id="typeSel" onchange="changeSel()">
+					  <option value="0">全部</option>
+					  <option value="1">公司新闻</option>
+					  <option value="2">业务公告</option>
+					  <option value="3">制度规范</option>
+					  <option value="4">顶部图片</option>
+					</select>
+				</div>
 				<h5 style="color: red;" class="text-center">${param.msg}</h5>
 				<table class="table table-bordered nth-child table-hover">
 						<thead>
 							<tr>
-								<th style="width: 50px;">#</th>
-								<th style="width: 100px;">用户名</th>
-								<th style="width: 170px;">创建时间</th>
-								<th style="width: 60px;">创建人</th>
-								<th style="width: 100px;">操作</th>
+								<th style="width: 20px;">#</th>
+								<th style="width: 100px;">标题</th>
+								<th style="width: 50px;">类型</th>
+								<th style="width: 100px;">创建时间</th>
+								<th style="width: 50px;">创建人</th>
+								<th style="width: 80px;">操作</th>
 							</tr>
 						</thead>
-					<c:forEach var="user" items="${pagination.valuesList}" varStatus="s">
+					<c:forEach var="news" items="${pagination.valuesList}" varStatus="s">
 						<tr>
 							<td>${s.index+1}</td>
-							<td>${user.userName}</td>
-							<td><fmt:formatDate value="${user.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date }</td>
-							<td>${user.createUser}</td>
+							<td>${news.title}</td>
 							<td>
-								<button type="button" class="btn  btn-xs btn-info" onclick="modify('${user.id}','${user.userName}')">修改</button>
-								<button type="button" class="btn btn-xs btn-danger"  onclick="del('${user.id}')">删除</button>
+								 <c:choose>  
+					               <c:when test="${news.type==1}">公司新闻</c:when>  
+					               <c:when test="${news.type==2}">业务公告</c:when>  
+					               <c:when test="${news.type==3}">制度规范</c:when>  
+					               <c:otherwise>顶部图片</c:otherwise>  
+					           </c:choose> 
+							</td>
+							<td><fmt:formatDate value="${news.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date}</td>
+							<td>${news.createUser}</td>
+							<td>
+								<button type="button" class="btn  btn-xs btn-info" onclick="modify('${news.id}')">修改</button>
+								<button type="button" class="btn btn-xs btn-danger"  onclick="del('${news.id}')">删除</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -79,36 +96,40 @@
 	</div>
 </body>
 <script type="text/javascript">
+	function init(){
+		 $("#typeSel").val('${type}');
+	}
+	function changeSel(){
+		page(1);
+	}
 	function page(pageNum){
-		var action ="<%=basePath%>user/list/10/"+pageNum;
+		var type=$("#typeSel").val();
+		var action ="<%=basePath%>news/list/10/"+pageNum;
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')
-	    var input1 = $("<input type='hidden' name='userName' />")
-	        input1.attr('value',10)
+	    var input1 = $("<input type='hidden' name='type' />")
+	        input1.attr('value',type)
 	        form.append(input1)
 	        form.appendTo("body")
 	        form.css('display','none')
 	        form.submit()		
 	}
 	function modify(id,name){
-	var action = "<%=basePath%>pages/user/modify.jsp";
+	var action = "<%=basePath%>news/query4modify";
     var form = $("<form></form>")
         form.attr('action',action)
         form.attr('method','post')
     var input1 = $("<input type='hidden' name='id' />")
         input1.attr('value',id)
-    var input2 = $("<input type='hidden' name='userName' />")
-        input2.attr('value',name)
         form.append(input1)
-        form.append(input2)
         form.appendTo("body")
         form.css('display','none')
         form.submit()
 	}
 	function del(id){
 		if(window.confirm("您确认要删除吗")){
-		var action = "<%=basePath%>user/delete";
+		var action = "<%=basePath%>news/delete";
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')

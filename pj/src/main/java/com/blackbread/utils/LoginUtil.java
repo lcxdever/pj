@@ -19,7 +19,7 @@ public class LoginUtil {
 
 	public void readProperties() throws IOException {
 		Properties p = new Properties();
-		InputStream in = Object.class.getResourceAsStream(fileName);// 这里有人用new
+		InputStream in = getClass().getResourceAsStream(fileName);// 这里有人用new
 		p.load(in);
 		in.close();
 		if (p.containsKey("driverClass")) {
@@ -127,8 +127,8 @@ public class LoginUtil {
 	 */
 	public static void main(String[] args) throws IOException {
 		LoginUtil util = new LoginUtil();
-		System.out.println(util.getUrl("EN", "S1723", "1111"));
-		System.out.println(util.getRegistUrl());
+//		System.out.println(util.getUrl("EN", "S1723", "1111"));
+		System.out.println("为适应风电市场的快速增长及满足客户多元化的需求，金风科技根据不同的地理气候条件，进行差异化设计，形成了".length());
 	}
 
 }

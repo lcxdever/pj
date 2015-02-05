@@ -29,10 +29,11 @@ public class UserController {
 	UserService userService;
 
 	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
-	public ModelAndView list(@PathVariable int pageSize,@PathVariable int pageNo,
-			@ModelAttribute("user") User user, HttpServletRequest request,
-			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		Pagination pagination=new Pagination(pageNo, pageSize);
+	public ModelAndView list(@PathVariable int pageSize,
+			@PathVariable int pageNo, @ModelAttribute("user") User user,
+			HttpServletRequest request, HttpServletResponse response,
+			ModelMap modelMap) throws Exception {
+		Pagination pagination = new Pagination(pageNo, pageSize);
 		pagination = userService.query(pagination, user);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("pagination", pagination);
@@ -64,5 +65,26 @@ public class UserController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
 		return new ModelAndView("redirect:/user/list/10/1", model);
+	}
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(
+			HttpServletRequest request, ModelMap modelMap) {
+		request.getSession().removeAttribute("user");
+		return new ModelAndView("/login", modelMap);
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("user") User user,
+			HttpServletRequest request, ModelMap modelMap) {
+		boolean success = userService.login(user);
+		Map<String, Object> model = new HashMap<String, Object>();
+		if (success) {
+			model.put("msg", "登录成功");
+			request.getSession().setAttribute("user", user);
+			return new ModelAndView("redirect:/user/list/10/1", model);
+		} else {
+			model.put("msg", "用户名密码不符合");
+			model.put("status", "error");
+			return new ModelAndView("/login", model);
+		}
 	}
 }

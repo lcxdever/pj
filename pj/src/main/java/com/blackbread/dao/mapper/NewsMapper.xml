@@ -5,7 +5,9 @@
 		<id column="ID" property="id" jdbcType="VARCHAR" />
 		<result column="TITLE" property="title" jdbcType="VARCHAR" />
 		<result column="CONTENT" property="content" jdbcType="CLOB" />
-		<result column="SUMMARY" property="summary" jdbcType="CLOB" />
+		<result column="ONLYTXT" property="onlyTxt" jdbcType="CLOB" />
+		<result column="SUMMARY" property="summary" jdbcType="VARCHAR" />
+		<result column="SHOWPICURL" property="showPicUrl" jdbcType="VARCHAR" />
 		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
 		<result column="CREATEUSER" property="createUser " jdbcType="VARCHAR" />
 		<result column="URL" property="url" jdbcType="VARCHAR" />
@@ -15,7 +17,7 @@
 	</resultMap>
 	<select id="query" resultType="com.blackbread.model.News"  parameterType="java.util.HashMap">
 	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
-		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS where 1 = 1  
+		SELECT ID, TITLE, CONTENT,ONLYTXT,SUMMARY,SHOWPICURL,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS where 1 = 1  
 		<if test="type != null and type!= 0">  
        		 AND TYPE = #{type}  
     	</if>  
@@ -28,11 +30,11 @@
     	</if>  
 	</select>
 	<select id="queryByID" resultType="com.blackbread.model.News"  parameterType="com.blackbread.model.News">
-		SELECT ID, TITLE, CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS WHERE ID=#{id}   
+		SELECT ID, TITLE, CONTENT,ONLYTXT,SUMMARY,SHOWPICURL,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT FROM NEWS WHERE ID=#{id}   
 	</select>
 	<insert id="insert" parameterType="com.blackbread.model.News">
-		insert into NEWS(ID,TITLE,CONTENT,SUMMARY,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT)
-		values(#{id},#{title},#{content},#{summary},#{createTime},#{createUser},#{url},#{fileName},#{type},#{isHot})
+		insert into NEWS(ID,TITLE,CONTENT,ONLYTXT,SUMMARY,SHOWPICURL,CREATETIME,CREATEUSER,URL,FILENAME,TYPE,ISHOT)
+		values(#{id},#{title},#{content},#{onlyTxt},#{summary},#{showPicUrl},#{createTime},#{createUser},#{url},#{fileName},#{type},#{isHot})
 	</insert>
 	<update id="modify" parameterType="com.blackbread.model.News">  
 	    UPDATE NEWS  
@@ -43,9 +45,15 @@
 	         <if test="content != null and summary!=''">  
 	            CONTENT = #{content},  
 	        </if>
+	        <if test="onlyTxt != null and onlyTxt !=''">  
+	            ONLYTXT = #{onlyTxt},  
+	        </if>
 	         <if test="summary != null and summary!=''">  
 	            SUMMARY = #{summary},  
-	        </if> 
+	        </if>
+	         <if test="showPicUrl != null and showPicUrl!=''">  
+	            SHOWPICURL = #{showPicUrl},  
+	        </if>  
 	         <if test="url != null and url !=''">  
 	            URL = #{url},  
 	        </if> 

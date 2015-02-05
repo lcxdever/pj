@@ -10,28 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.News;
 import com.blackbread.service.NewsService;
+import com.blackbread.utils.JsonUtil;
+import com.blackbread.utils.LoginUtil;
 import com.blackbread.utils.Pagination;
 
 @Controller
 public class FrontController {
-	private static final Logger logger = Logger.getLogger(FrontController.class);
+	private static final Logger logger = Logger
+			.getLogger(FrontController.class);
 	@Autowired
 	NewsService newsService;
 
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		Pagination pagination=new Pagination(1, 1);
-		News news=new News();
+		Pagination pagination = new Pagination(1, 1);
+		News news = new News();
 		news.setType(1);
 		List<News> newsList = newsService.list(pagination, news);
-		Pagination pagination2=new Pagination(1, 6);
+		Pagination pagination2 = new Pagination(1, 6);
 		news.setType(2);
 		List<News> noticList = newsService.list(pagination2, news);
 		news.setType(3);
@@ -39,10 +46,31 @@ public class FrontController {
 		news.setType(4);
 		List<News> topList = newsService.list(pagination2, news);
 		
-		modelMap.put("newsList", newsList);
-		modelMap.put("noticList",noticList);
-		modelMap.put("ruleList",ruleList);
-		modelMap.put("topList",topList);
-		return new ModelAndView("/pages/news/list", modelMap);
+		if(newsList.size()>0){
+			modelMap.put("news", newsList.get(0));
+		}
+		modelMap.put("noticList", noticList);
+		modelMap.put("ruleList", ruleList);
+		modelMap.put("topList", topList);
+		LoginUtil util = new LoginUtil();
+		modelMap.put("register", util.getRegistUrl());
+		return new ModelAndView("/front/index", modelMap);
+	}
+	@RequestMapping(value = "/news")
+	public ModelAndView news(HttpServletRequest request,@ModelAttribute("news") News news,
+			HttpServletResponse response, ModelMap modelMap) throws Exception {
+		news= newsService.queryByID(news);
+		modelMap.put("news", news);
+		return new ModelAndView("/front/news", modelMap);
+	}
+	@RequestMapping(value = "/login")
+	@ResponseBody
+	public String login(@RequestParam String username,
+			@RequestParam String password, @RequestParam String language,
+			ModelMap modelMap) throws Exception {
+		LoginUtil util = new LoginUtil();
+		String url=util.getUrl(language, username, password);
+		modelMap.put("url", url);
+		return JsonUtil.jsonFromObject(modelMap);
 	}
 }

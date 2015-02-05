@@ -30,15 +30,37 @@ public class NewsController {
 	NewsService newsService;
 
 	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
-	public ModelAndView list(@PathVariable int pageSize,@PathVariable int pageNo,
-			@ModelAttribute("news") News news, HttpServletRequest request,
-			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		Pagination pagination=new Pagination(pageNo, pageSize);
+	public ModelAndView list(@PathVariable int pageSize,
+			@PathVariable int pageNo, @ModelAttribute("news") News news,
+			HttpServletRequest request, HttpServletResponse response,
+			ModelMap modelMap) throws Exception {
+		Pagination pagination = new Pagination(pageNo, pageSize);
 		pagination = newsService.query(pagination, news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("pagination", pagination);
 		model.put("type", news.getType());
-		return new ModelAndView("/pages/news/list", model);
+		return new ModelAndView(dispart(news), model);
+	}
+
+	private String dispart(News news) {
+		String url = "/pages/news/news";
+		switch (news.getType()) {
+		case 1:
+			url = "/pages/news/news";
+			break;
+		case 2:
+			url = "/pages/news/notices";
+			break;
+		case 3:
+			url = "/pages/news/rules";
+			break;
+		case 4:
+			url = "/pages/news/tops";
+			break;
+		default:
+			break;
+		}
+		return url;
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -50,13 +72,13 @@ public class NewsController {
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/news/list/10/1", model);
+		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
 	}
-	
+
 	@RequestMapping(value = "/query4modify", method = RequestMethod.POST)
 	public ModelAndView query4modify(@ModelAttribute("news") News news,
 			HttpServletRequest request, ModelMap modelMap) {
-		news=newsService.queryByID(news);
+		news = newsService.queryByID(news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("news", news);
 		return new ModelAndView("/pages/news/modify", model);
@@ -70,8 +92,8 @@ public class NewsController {
 		newsService.modify(file, news, request.getSession().getServletContext()
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/news/list/10/1", model);
+		model.put("msg", "修改成功");
+		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -80,6 +102,6 @@ public class NewsController {
 		newsService.delete(news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
-		return new ModelAndView("redirect:/news/list/10/1", model);
+		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
 	}
 }

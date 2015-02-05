@@ -16,6 +16,9 @@
 	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
 		SELECT count(1) FROM T_USER ORDER BY CREATETIME
 	</select>
+	<select id="queryByID" resultType="com.blackbread.model.User"  parameterType="com.blackbread.model.User">
+		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER WHERE USERNAME=#{userName}
+	</select>
 	<insert id="insert" parameterType="com.blackbread.model.User">
 		insert into
 		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER)
