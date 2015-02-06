@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>新闻详细内容</title>
+<title>金风科技供应链电子商务网</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 <link href="<%=request.getContextPath()%>/static/css/index.css" rel="stylesheet">
 <style type="text/css">
@@ -38,7 +38,7 @@
 </head>
 <body>
 	<jsp:include page="/static/pages/header.jsp"></jsp:include>
-	<div class="center" style="width: 980px">
+	<div class="center" style="width: 980px;">
 		<h1>${news.title}</h1>
 		<div class="info">
 			<span id="pubtime">
