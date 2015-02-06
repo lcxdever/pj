@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.News;
+import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
 import com.blackbread.utils.Pagination;
 
@@ -68,6 +69,8 @@ public class NewsController {
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			@ModelAttribute("news") News news, HttpServletRequest request,
 			ModelMap modelMap) {
+		User user=(User)request.getSession().getAttribute("user");
+		news.setCreateUser(user.getUserName());
 		newsService.insert(file, news, request.getSession().getServletContext()
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,12 +57,24 @@ public class FrontController {
 		modelMap.put("register", util.getRegistUrl());
 		return new ModelAndView("/front/index", modelMap);
 	}
-	@RequestMapping(value = "/news")
+	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
+	public ModelAndView list(@PathVariable int pageSize,
+			@PathVariable int pageNo, @ModelAttribute("news") News news,
+			HttpServletRequest request, HttpServletResponse response,
+			ModelMap modelMap) throws Exception {
+		Pagination pagination = new Pagination(pageNo, pageSize);
+		pagination = newsService.query(pagination, news);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("pagination", pagination);
+		model.put("type", news.getType());
+		return new ModelAndView("/front/list", model);
+	}
+	@RequestMapping(value = "/detail")
 	public ModelAndView news(HttpServletRequest request,@ModelAttribute("news") News news,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
 		news= newsService.queryByID(news);
 		modelMap.put("news", news);
-		return new ModelAndView("/front/news", modelMap);
+		return new ModelAndView("/front/detail", modelMap);
 	}
 	@RequestMapping(value = "/login")
 	@ResponseBody

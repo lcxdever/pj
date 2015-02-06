@@ -65,6 +65,9 @@
    	margin: 30px auto 0px auto;
    }
    .c_2_top{height: 40px;background-image: url("../images/titles.png");}
+   .news_list{height: 40px;width: 150px;float: left;cursor: pointer;}
+   .notic_list{height: 40px;width: 150px;float: left;cursor: pointer;margin-left: 200px;}
+   .rule_list{height: 40px;width: 150px;float: left;cursor: pointer;margin-left: 200px;}
    .c_2_mid{height: 200px;background-color: #fff;}
    .news{float: left;margin: 15px 0px 0px 13px;}
    .notice{float: left;margin: 25px 0px 0px 50px;}

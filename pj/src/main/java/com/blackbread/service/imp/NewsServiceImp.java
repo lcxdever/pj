@@ -36,7 +36,6 @@ public class NewsServiceImp implements NewsService {
 			news.setFileName("");
 		}
 		news.setCreateTime(new Date());
-		news.setCreateUser("张三");
 		news.setId(UUID.randomUUID().toString());
 		news.setIsHot(0);
 		newsProcess(news);

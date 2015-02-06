@@ -28,7 +28,6 @@ public class UserServiceImp implements UserService {
 
 	public void insert(User user) {
 		user.setCreateTime(new Date());
-		user.setCreateUser("张三");
 		user.setPassWord(Coder.generatePassword(user.getPassWord()));
 		user.setId(UUID.randomUUID().toString());
 		userMapper.insert(user);
@@ -63,6 +62,8 @@ public class UserServiceImp implements UserService {
 	public boolean login(User user) {
 		String passWord=user.getPassWord();
 		user=userMapper.queryByID(user);
+		if(user==null)
+			return false;
 		return Coder.validatePassword(user.getPassWord(), passWord);
 	}
 

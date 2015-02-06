@@ -25,7 +25,7 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
 		    <div class="col-sm-10" >
-		     <select class="form-control" name="type"  id="typeSel" onchange="changeSel()">
+		     <select class="form-control" name="type"  id="typeSel" readonly onchange="changeSel()">
 				  <option value="1">公司新闻</option>
 				  <option value="2">业务公告</option>
 				  <option value="3">制度规范</option>

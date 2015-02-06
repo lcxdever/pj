@@ -11,32 +11,96 @@ CREATE TABLESPACE "GODEWIND"
 GRANT "CONNECT" TO "GODEWIND";
 GRANT "DBA" TO "GODEWIND"
 
-CREATE TABLE "GODEWIND"."NEWS" 
-   (  "ID" VARCHAR2(50), 
-  "TITLE" VARCHAR2(100), 
-  "CONTENT" CLOB, 
-  "SUMMARY" CLOB, 
-  "CREATETIME" DATE, 
-  "CREATEUSER" VARCHAR2(100), 
-  "URL" VARCHAR2(500), 
-  "TYPE" NUMBER, 
-  "ISHOT" NUMBER, 
-  "FILENAME" VARCHAR2(100), 
-   CONSTRAINT "NEWS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "GODEWIND"  ENABLE
-   );
-  CREATE TABLE "GODEWIND"."T_USER" 
-   (  "ID" VARCHAR2(50) NOT NULL ENABLE, 
-  "USERNAME" VARCHAR2(100), 
-  "PASSWORD" VARCHAR2(100), 
-  "CREATETIME" DATE, 
-  "CREATEUSER" VARCHAR2(100), 
-   CONSTRAINT "USER_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "GODEWIND"  ENABLE
-   );
+-- Create table
+create table T_USER
+(
+  id         VARCHAR2(50) not null,
+  username   VARCHAR2(100) not null,
+  password   VARCHAR2(100),
+  createtime DATE,
+  createuser VARCHAR2(100)
+)
+tablespace GODEWIND
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 8K
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_USER
+  add constraint USER_PK primary key (ID)
+  using index 
+  tablespace GODEWIND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table T_USER
+  add constraint USER_USERNAME_PK unique (USERNAME)
+  using index 
+  tablespace GODEWIND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+insert into T_USER (id, username, password, createtime, createuser)
+values ('4fa22fae-bcf3-4347-8b2a-b5f00108f70a', 'admin', '202CB962AC59075B964B07152D234B70', to_date('06-02-2015 10:09:49', 'dd-mm-yyyy hh24:mi:ss'), 'admin');
+-- Create table
+create table NEWS
+(
+  id         VARCHAR2(50) not null,
+  title      VARCHAR2(100),
+  content    CLOB,
+  createtime DATE,
+  createuser VARCHAR2(100),
+  url        VARCHAR2(500),
+  type       NUMBER,
+  ishot      NUMBER,
+  filename   VARCHAR2(100),
+  onlytxt    CLOB,
+  summary    VARCHAR2(100),
+  showpicurl VARCHAR2(1000)
+)
+tablespace GODEWIND
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table NEWS
+  add constraint NEWS_PK primary key (ID)
+  using index 
+  tablespace GODEWIND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

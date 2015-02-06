@@ -1,7 +1,6 @@
 package com.blackbread.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +42,8 @@ public class UserController {
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ModelAndView insert(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
+		User login=(User)request.getSession().getAttribute("user");
+		user.setCreateUser(login.getUserName());
 		userService.insert(user);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "添加成功");

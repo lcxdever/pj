@@ -27,8 +27,16 @@
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			  <!-- Indicators -->
 			  <ol class="carousel-indicators">
-			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			  	 <c:forEach var="top" items="${topList}" varStatus="s">
+			  	 	 <c:choose>  
+		               <c:when test="${s.first}">
+		               		<li data-target="#carousel-example-generic" data-slide-to="${s.index}" class="active"></li>
+		               </c:when>
+		                <c:otherwise>
+		                	<li data-target="#carousel-example-generic" data-slide-to="${s.index}"></li>
+		                </c:otherwise>
+		             </c:choose>
+			  	 </c:forEach>
 			  </ol>
 			  <!-- Wrapper for slides -->
 			  <div class="carousel-inner" role="listbox">
@@ -36,14 +44,14 @@
 				 	 <c:choose>  
 		               <c:when test="${s.first}">
 					   		<div class="item active">
-						      <img   src="<%=request.getContextPath()%>/${top.url}">
+						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 690px;height: 350px;">
 						      <div class="carousel-caption">
 						      </div>
 						    </div>
 					   </c:when>  
 		               <c:otherwise>
 							<div class="item">
-						      <img   src="<%=request.getContextPath()%>/${top.url}">
+						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 690px;height: 350px;">
 						      <div class="carousel-caption">
 						      </div>
 						    </div>
@@ -100,26 +108,30 @@
 			</div>
 		</div>
 		<div class="c_2">
-			<div class="c_2_top"></div>
+			<div class="c_2_top">
+				<a class="news_list" href="<%=basePath%>list/20/1?type=1" target="_blank"></a>
+				<a class="notic_list" href="<%=basePath%>list/20/1?type=2" target="_blank"></a>
+				<a class="rule_list"  href="<%=basePath%>list/20/1?type=3" target="_blank"></a>
+			</div>
 			<div class="c_2_mid">
 				<div class="news">
 					<img alt="" width="297" height="82" src="${news.showPicUrl}">
 					<div >
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${news.summary}...
-						<a class="show_detail" href="news?id=${news.id}" target="_blank">[查看详情]</a>
+						<a class="show_detail" href="detail?id=${news.id}" target="_blank">[查看详情]</a>
 					</div>
 				</div>
 				<div class="notice">
 					<ul>
 						<c:forEach var="notic" items="${noticList}" varStatus="s">
-							<li><a  href="news?id=${notic.id}" target="_blank">${notic.title}</a><span><fmt:formatDate value="${notic.createTime }" var="date" pattern="yyyy-MM-dd"/>${date}</span></li>
+							<li><a  href="detail?id=${notic.id}" target="_blank">${notic.title}</a><span><fmt:formatDate value="${notic.createTime }" var="date" pattern="yyyy-MM-dd"/>${date}</span></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="rules">
 					<ul>
 						<c:forEach var="rule" items="${ruleList}" varStatus="s">
-							<li><a  href="news?id=${rule.id}" target="_blank">${rule.title}</a></li>
+							<li><a  href="detail?id=${rule.id}" target="_blank">${rule.title}</a></li>
 						</c:forEach>
 					</ul>
 				</div>

@@ -17,9 +17,6 @@ import com.blackbread.model.User;
  * <p>
  * 过滤器，用于验证登录的信息，判断session是否存在
  * </p>
- * 
- * @author 李成祥
- * @version 1.00 2011/10/10 李成祥
  *          <p>
  *          9.99 9999/99/99 修改者姓名 修改内容说明
  *          </p>
