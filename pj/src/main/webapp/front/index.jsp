@@ -86,7 +86,7 @@
 					<span class="login_txt">登录</span>
 					<span class="place hot">&nbsp;</span>
 					<span class="language_txt hot"><span class="target_language">中文</span><span>&nbsp;&nbsp;&nbsp;</span>
-						<select  multiple class="form-control languageSel" style="height: 50px;font-size: 5px">
+						<select  multiple class="form-control languageSel" style="height: 50px;font-size: 12px">
 						  <option value="ZHS" selected="selected">中文</option>
 						  <option value="US" >English</option>
 						</select>
@@ -103,7 +103,7 @@
 					</div>
 					<div class="error_info"></div>
 					<div class="logint_btn" onclick="submit()">登录</div>
-					<a href="${register}" target="_blank" class="regist">供应商注册</a>
+					<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
 				</div>
 			</div>
 		</div>
@@ -124,14 +124,14 @@
 				<div class="notice">
 					<ul>
 						<c:forEach var="notic" items="${noticList}" varStatus="s">
-							<li><a  href="detail?id=${notic.id}" target="_blank">${notic.title}</a><span><fmt:formatDate value="${notic.createTime }" var="date" pattern="yyyy-MM-dd"/>${date}</span></li>
+							<li><div class="li_cont"><div class='point'></div><a  href="detail?id=${notic.id}" target="_blank">${notic.title}</a><span><fmt:formatDate value="${notic.createTime }" var="date" pattern="yyyy-MM-dd"/>${date}</span></div></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="rules">
 					<ul>
 						<c:forEach var="rule" items="${ruleList}" varStatus="s">
-							<li><a  href="detail?id=${rule.id}" target="_blank">${rule.title}</a></li>
+							<li><div class="li_cont"><div class='point'></div><a  href="detail?id=${rule.id}" target="_blank">${rule.title}</a></div></li>
 						</c:forEach>
 					</ul>
 				</div>

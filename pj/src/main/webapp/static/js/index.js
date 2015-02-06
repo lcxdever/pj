@@ -23,6 +23,8 @@ $(".languageSel").change(function(){
 function inputChange(){
 	if($("#username").val()!=""&&$("#password").val()!="")
 		$(".logint_btn").css("background-image","url('static/images/login_btn_input.png')");
+	else
+		$(".logint_btn").css("background-image","url('static/images/login_btn_none.png')");
 }
 $("#username").bind('input propertychange',inputChange); 
 $("#password").bind('input propertychange', inputChange);
@@ -41,7 +43,7 @@ function submit(){
 	$(".error_info").text("");
 	$.ajax({
 	     type: 'POST',
-	     url: "<%=basePath%>login" ,
+	     url: "login" ,
 	    data: {
 	    	"language":language[0],
 	    	"username":username,
@@ -52,8 +54,10 @@ function submit(){
 	    	if(data.url=="error")
 	    		$(".error_info").text("服务器异常请联系管理员");
 	    	else{
-	    		$(".error_info").text("");
-	    		location.href=data.url;
+	    		 window.open(data.url);
+	    		 $(".error_info").text("");
+//	    		 $("#username").val("");
+//	    		 $("#password").val("");
 	    	}
 	    }
 	});

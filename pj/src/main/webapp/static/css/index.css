@@ -1,6 +1,6 @@
 .carousel-indicators {
 	  bottom: -1px;
-	  left: 32px;
+	  left: 8%;
 	}
 .carousel-indicators li {
   background-color: #366AC9;
@@ -45,7 +45,7 @@
 .languageSel option:hover {background-color: #B1D2F4;}
    .language_txt:hover .languageSel{display: block;}
    .login_mid{width: 236px;margin: auto;}
-   .username{height: 35px;background-image: url("../images/username.png");margin-top: 10px;}
+   .username{height: 35px;background-image: url("../images/uname.png");margin-top: 10px;}
    .username input,.password input{width: 197px;float: right;border: none;height: 31px;margin-top: 1px;margin-right: 1px}
    .password{height: 35px;background-image: url("../images/password.png");margin-top: 10px;}
    .username_txt{margin-top: 30px;color: #999;font-size: 12px}
@@ -73,8 +73,12 @@
    .notice{float: left;margin: 25px 0px 0px 50px;}
    .rules{float: left;margin: 25px 0px 0px 60px;}
    .notice ul,.rules ul{padding: 0px}
-   .notice  li,.rules li{list-style-type:none;padding-left: 10px;line-height: 25px;background:url("../images/li.png") no-repeat left;width: 280px}
+   .li_cont{width: 100%;float: left}
+   .notice ul li,.rules ul li{list-style-type:none;padding-left: 10px;line-height: 25px;background:url("../images/yellow_qu.png") no-repeat left;width: 280px}
    .notice li span,.rules li span{color: #999999;float: right;}
+   .point{float: left;background-image: url('../images/li.png');width: 3px;height: 2px;margin-top: 10px}
+   .notice ul li a{margin-left:5px;float:left;width:190px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+   .rules ul li a{margin-left:5px;float:left;width:250px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
    .notice ul li a:link,.rules ul li a:link{ color: #333333;  text-decoration: none}
 .notice ul li a:visited,.rules ul li a:visited { color: #333333;  text-decoration: none}
 .notice ul li a:hover,.rules ul li a:hover{color: #FF7201; text-decoration: underline;}

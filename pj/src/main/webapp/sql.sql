@@ -75,7 +75,7 @@ create table NEWS
   ishot      NUMBER,
   filename   VARCHAR2(100),
   onlytxt    CLOB,
-  summary    VARCHAR2(100),
+  summary    VARCHAR2(200),
   showpicurl VARCHAR2(1000)
 )
 tablespace GODEWIND

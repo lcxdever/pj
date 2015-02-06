@@ -23,11 +23,11 @@
 	.edui-scale{
 -webkit-box-sizing:content-box;border-box:content-box;-moz-box-sizing:content-box;
 }
-	.center{text-align: center;background-color: white;}
-	h1{font: 26px/65px "微软雅黑";}
-	.info{width: 980px;border-bottom: solid 1px #CCC;}
+	.center{text-align: center;background-color: white;padding:20px 40px 40px 40px}
+	h1{font: 26px/65px "微软雅黑";line-height: 45px}
+	.info{width: 900px;border-bottom: solid 1px #CCC;}
 	.source{margin-left: 50px}
-	.content{text-align: left;margin-top: 20px;width: 980px;padding:0px 10px 0px 10px; }
+	.content{text-align: left;margin-top: 20px;width: 900px;padding:0px 10px 0px 10px; }
 	.fujian{text-align: right;}
 	.fujian a{cursor: pointer;margin: 0px 40px 20px 0px;}
 	.fujian a:link{ color: #0068B7;  text-decoration: none}
