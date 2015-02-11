@@ -14,6 +14,7 @@ import com.blackbread.dao.NewsMapper;
 import com.blackbread.model.News;
 import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
+import com.blackbread.utils.DateUtil;
 import com.blackbread.utils.ImageUtil;
 import com.blackbread.utils.MapHelper;
 import com.blackbread.utils.Pagination;
@@ -28,8 +29,10 @@ public class NewsServiceImp implements NewsService {
 		if (news.getType() == 4)
 			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
-			String realFile = UploadFileUtil.saveFile(file, path + "upload/files/");
-			news.setUrl("upload/files/" + realFile);
+			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "YYYYMMDD")
+					+ "/";
+			String realFile = UploadFileUtil.saveFile(file, path+relaPath);
+			news.setUrl(relaPath + realFile);
 			news.setFileName(file.getOriginalFilename());
 		} else {
 			news.setUrl("");
@@ -41,16 +44,19 @@ public class NewsServiceImp implements NewsService {
 		newsProcess(news);
 		newsMapper.insert(news);
 	}
-	private void newsProcess(News news){
-		String onlyTxt=news.getOnlyTxt();
-		news.setSummary(onlyTxt.substring(0,onlyTxt.length()>53?53:onlyTxt.length()));
-		List<String> imageUrlList=ImageUtil. getImageUrl(news.getContent());
-		List<String> imageSrcList=ImageUtil.getImageSrc(imageUrlList);
-		if(imageSrcList.size()>0)
+
+	private void newsProcess(News news) {
+		String onlyTxt = news.getOnlyTxt();
+		news.setSummary(onlyTxt.substring(0, onlyTxt.length() > 53 ? 53
+				: onlyTxt.length()));
+		List<String> imageUrlList = ImageUtil.getImageUrl(news.getContent());
+		List<String> imageSrcList = ImageUtil.getImageSrc(imageUrlList);
+		if (imageSrcList.size() > 0)
 			news.setShowPicUrl(imageSrcList.get(0));
 		else
 			news.setShowPicUrl("");
 	}
+
 	public Pagination query(Pagination pagination, News news) {
 		if (pagination == null)
 			pagination = new Pagination(1, 10000);
@@ -66,11 +72,13 @@ public class NewsServiceImp implements NewsService {
 
 	@Override
 	public void modify(MultipartFile file, News news, String path) {
-		if (news.getType() == 4&&file!=null&&file.getSize()!=0)
+		if (news.getType() == 4 && file != null && file.getSize() != 0)
 			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
-			String realFile = UploadFileUtil.saveFile(file, path + "upload/files/");
-			news.setUrl("upload/files/" + realFile);
+			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "YYYYMMDD")
+					+ "/";
+			String realFile = UploadFileUtil.saveFile(file, path+relaPath);
+			news.setUrl(relaPath + realFile);
 			news.setFileName(file.getOriginalFilename());
 		} else {
 			news.setUrl("");

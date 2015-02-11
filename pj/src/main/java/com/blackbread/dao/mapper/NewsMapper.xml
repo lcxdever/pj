@@ -21,7 +21,7 @@
 		<if test="type != null and type!= 0">  
        		 AND TYPE = #{type}  
     	</if>  
-		ORDER BY CREATETIME) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+		ORDER BY CREATETIME DESC) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
 	</select>
 	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
 		SELECT count(1) FROM NEWS where 1 = 1  
