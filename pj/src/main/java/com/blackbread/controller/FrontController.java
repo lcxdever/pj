@@ -31,7 +31,9 @@ public class FrontController {
 			.getLogger(FrontController.class);
 	@Autowired
 	NewsService newsService;
-
+	public FrontController(){
+		System.out.println("初始化了几次");
+	}
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
