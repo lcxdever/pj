@@ -54,6 +54,7 @@
 .logint_btn:hover{background-image:url("../images/login_btn_hover.png")}
 .error_info{position: absolute;height: 20px;color: red;bottom: 105px;text-align: center;width: 236px;}
 .regist{cursor:pointer;float: right;font-size: 12px;color: #0068B7;margin-top: 20px; text-decoration: none}
+.suggestions{cursor:pointer;float:left;font-size: 12px;color: #0068B7;margin-top: 20px; text-decoration: none}
 .show_detail{cursor:pointer;float: right;margin-right: 50px;}
 .regist:link,.show_detail:link{ color: #0068B7;  text-decoration: none}
 .regist:visited,.show_detail:visited { color: #0068B7;  text-decoration: none}

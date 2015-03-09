@@ -16,53 +16,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>金风科技供应链电子商务网</title>
+<title>金风科技供应链电子商务网--投诉与建议</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 <link href="<%=request.getContextPath()%>/static/css/index.css" rel="stylesheet">
 <style type="text/css">
 	.edui-scale{
 -webkit-box-sizing:content-box;border-box:content-box;-moz-box-sizing:content-box;
 }
-	.center{text-align: center;background-color: white;padding:20px 40px 40px 40px}
+	.center{text-align: center;background-color: white;padding:0px 40px 40px 40px}
+	.center div{text-align: left}
 	h1{font: 26px/65px "微软雅黑";line-height: 45px}
 	.info{width: 900px;border-bottom: solid 1px #CCC;}
 	.source{margin-left: 50px}
 	.content{text-align: left;margin-top: 20px;width: 900px;padding:0px 10px 0px 10px; }
-	.fujian{text-align: right;}
-	.fujian a{cursor: pointer;margin: 0px 40px 20px 0px;}
-	.fujian a:link{ color: #0068B7;  text-decoration: none}
-.fujian a:visited{ color: #0068B7;  text-decoration: none}
-.fujian a:hover{color: #FF7201; text-decoration: underline;}
-.fujian a:active{ color: #ff7f24; text-decoration: underline;}
 </style>
 </head>
 <body>
 	<jsp:include page="/static/pages/header.jsp"></jsp:include>
-	<div class="center" style="width: 980px;">
-		<c:choose>
-		    <c:when test="${message!=null}">
-		   	    ${message}不能查询详细内容,请先<a href="<%=path%>/index">登录系统</a>
-		    </c:when>
-		    <c:otherwise>
-		    	<h1>${news.title}</h1>
-				<div class="info">
-					<span id="pubtime">
-					发布时间：<fmt:formatDate value="${news.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date}
-					</span>
-					<span id="source">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布人：${news.createUser}
-					</span>
-				</div>
-				<div class="content">
-					${news.content }
-				</div>
-				<div class="fujian">
-					  <c:if test="${news.url!=null && news.url!=''}">
-					  	<a href="<%=basePath%>${news.url}" target="_blank">附件：${news.fileName}</a>
-					  </c:if>
-				</div>
-		    </c:otherwise>
-		</c:choose>
+	<div class="center" style="width: 680px;">
+		<h1>投诉与建议</h1>
+		<form action="">
+			<div class="form-group" style="margin-top: 20px">
+				<label for="exampleInputEmail1">供应商名称</label> <input
+					  class="form-control" id="exampleInputEmail1" name="userName"
+					placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">联系人</label> <input  name="passWord"
+					  class="form-control" id="exampleInputPassword1"
+					placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">联系方式</label> <input name="passWordAgain"
+					 class="form-control" id="exampleInputPassword1"
+					placeholder="请输入您的联系方式便于我们与您联系">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">建议内容</label> 
+				<textarea class="form-control" rows="4" placeholder="请留下您宝贵的建议我们将努力做的更好"></textarea>
+			</div>
+			<button type="submit"  class="btn btn-default">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+		</form>
 	</div>
 	<jsp:include page="/static/pages/footer.jsp"></jsp:include>
 </body>

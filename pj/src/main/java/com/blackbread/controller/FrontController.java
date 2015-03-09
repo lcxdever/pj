@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.News;
+import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
 import com.blackbread.utils.JsonUtil;
 import com.blackbread.utils.LoginUtil;
@@ -31,9 +32,6 @@ public class FrontController {
 			.getLogger(FrontController.class);
 	@Autowired
 	NewsService newsService;
-	public FrontController(){
-		System.out.println("初始化了几次");
-	}
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
@@ -74,8 +72,12 @@ public class FrontController {
 	@RequestMapping(value = "/detail")
 	public ModelAndView news(HttpServletRequest request,@ModelAttribute("news") News news,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
+		User user = (User) request.getSession().getAttribute("user");
 		news= newsService.queryByID(news);
 		modelMap.put("news", news);
+		if(news.getType()!=1&&user==null){
+			modelMap.put("message", "您还未登录系统");
+		}
 		return new ModelAndView("/front/detail", modelMap);
 	}
 	@RequestMapping(value = "/login")

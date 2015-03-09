@@ -29,7 +29,7 @@ public class NewsServiceImp implements NewsService {
 		if (news.getType() == 4)
 			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
-			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "YYYYMMDD")
+			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "yyyyMMdd")
 					+ "/";
 			String realFile = UploadFileUtil.saveFile(file, path+relaPath);
 			news.setUrl(relaPath + realFile);
@@ -75,7 +75,7 @@ public class NewsServiceImp implements NewsService {
 		if (news.getType() == 4 && file != null && file.getSize() != 0)
 			UploadFileUtil.filter(file.getOriginalFilename());
 		if (!file.isEmpty()) {
-			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "YYYYMMDD")
+			String relaPath = "upload/files/" + DateUtil.formart(new Date(), "yyyyMMdd")
 					+ "/";
 			String realFile = UploadFileUtil.saveFile(file, path+relaPath);
 			news.setUrl(relaPath + realFile);
