@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackbread.dao.SuggestionMapper">
+	<resultMap type="com.blackbread.model.Suggestion" id="BaseResultMap">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="ANONYMOUS" property="anonymous" jdbcType="INTEGER" />
+		<result column="SUPPLIER" property="supplier" jdbcType="VARCHAR" />
+		<result column="CONTACTNAME" property="contactName" jdbcType="VARCHAR" />
+		<result column="CONTACTWAY" property="contactWay" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<select id="query" resultType="com.blackbread.model.Suggestion"  parameterType="java.util.HashMap">
+	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
+		SELECT ID, TITLE, CONTENT,ANONYMOUS,SUPPLIER,CONTACTNAME,CONTACTWAY,CREATETIME FROM SUGGESTION
+		 ORDER BY CREATETIME ) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+	</select>
+	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
+		SELECT count(1) FROM SUGGESTION ORDER BY CREATETIME
+	</select>
+	<select id="queryByID" resultType="com.blackbread.model.Suggestion"  parameterType="com.blackbread.model.User">
+		SELECT ID, TITLE, CONTENT,ANONYMOUS,SUPPLIER,CONTACTNAME,CONTACTWAY,CREATETIME FROM SUGGESTION
+		 WHERE ID=#{id}
+	</select>
+	<insert id="insert" parameterType="com.blackbread.model.Suggestion">
+		INSERT INTO
+		SUGGESTION(ID, TITLE, CONTENT,ANONYMOUS,SUPPLIER,CONTACTNAME,CONTACTWAY,CREATETIME)
+		values(#{id},#{title},#{content},#{anonymous},#{supplier},#{contactName},#{contactWay},#{createTime})
+	</insert>
+
+	<delete id="delete" parameterType="com.blackbread.model.Suggestion">  
+		DELETE SUGGESTION WHERE ID=#{id}
+	</delete>
+</mapper>  

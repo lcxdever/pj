@@ -104,7 +104,7 @@
 					<div class="error_info"></div>
 					<div class="logint_btn" onclick="submit()">登录</div>
 					<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
-					<a href="<%=basePath%>front/suggestions.jsp"  class="suggestions">投诉与建议</a>
+					<a href="<%=basePath%>front/suggestions.jsp" target="_blank"  class="suggestions">投诉与建议</a>
 				</div>
 			</div>
 		</div>

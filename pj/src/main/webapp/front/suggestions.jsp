@@ -30,30 +30,65 @@
 	.source{margin-left: 50px}
 	.content{text-align: left;margin-top: 20px;width: 900px;padding:0px 10px 0px 10px; }
 </style>
+<script type="text/javascript">
+function change(o){
+	if($("#anonymousCheck").is(':checked')){
+		$("#contactDiv").css("display","none");
+		$("#anonymous").val("1");
+	}else{
+		$("#contactDiv").css("display","block");
+		$("#anonymous").val("0");
+	}
+}
+function check(){
+	if($("#title").val()==""){
+		alert("标题不可为空");
+		return false;
+	}
+	if($("#content").val()==""){
+		alert("内容不可为空");
+		return false;
+	}
+	return true;
+}
+</script>
 </head>
 <body>
 	<jsp:include page="/static/pages/header.jsp"></jsp:include>
 	<div class="center" style="width: 680px;">
 		<h1>投诉与建议</h1>
-		<form action="">
+		<form action="<%=basePath%>back/suggestion/insert" onsubmit="return check()" method="POST">
 			<div class="form-group" style="margin-top: 20px">
-				<label for="exampleInputEmail1">供应商名称</label> <input
-					  class="form-control" id="exampleInputEmail1" name="userName"
-					placeholder="">
-			</div>
+					<label for="title">标题</label> <input
+						  class="form-control" id="title" name="title"
+						placeholder="">
+				</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">联系人</label> <input  name="passWord"
-					  class="form-control" id="exampleInputPassword1"
-					placeholder="">
+				<label for="content">建议内容</label> 
+				<textarea class="form-control" rows="4" name="content" id="content" placeholder="请留下您宝贵的建议我们将努力做的更好"></textarea>
 			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">联系方式</label> <input name="passWordAgain"
-					 class="form-control" id="exampleInputPassword1"
-					placeholder="请输入您的联系方式便于我们与您联系">
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">建议内容</label> 
-				<textarea class="form-control" rows="4" placeholder="请留下您宝贵的建议我们将努力做的更好"></textarea>
+			<div class="checkbox" style="float: right;">
+			    <label>
+			      <input type="checkbox" name="anonymousCheck" id="anonymousCheck" onchange="change(this)">匿名
+			      <input type="hidden" name="anonymous" id="anonymous" value="0">
+			    </label>
+			  </div>
+			<div id="contactDiv">
+				<div class="form-group" style="margin-top: 20px">
+					<label for="supplier">供应商名称</label> <input
+						  class="form-control" id="supplier" name="supplier"
+						placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="contactName">联系人</label> <input  name="contactName"
+						  class="form-control" id="contactName"
+						placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="contactWay">联系方式</label> <input name="contactWay"
+						 class="form-control" id="contactWay"
+						placeholder="请输入您的联系方式便于我们与您联系">
+				</div>
 			</div>
 			<button type="submit"  class="btn btn-default">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 		</form>
