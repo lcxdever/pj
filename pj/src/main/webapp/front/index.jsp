@@ -44,14 +44,14 @@
 				 	 <c:choose>  
 		               <c:when test="${s.first}">
 					   		<div class="item active">
-						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 690px;height: 350px;">
+						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 770px;height: 350px;">
 						      <div class="carousel-caption">
 						      </div>
 						    </div>
 					   </c:when>  
 		               <c:otherwise>
 							<div class="item">
-						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 690px;height: 350px;">
+						      <img   src="<%=request.getContextPath()%>/${top.url}" style="width: 770px;height: 350px;">
 						      <div class="carousel-caption">
 						      </div>
 						    </div>
@@ -81,31 +81,33 @@
 			  </a>
 			   -->
 			</div>
-			<div class="login">				
-				<div class="login_top">
-					<span class="login_txt">登录</span>
-					<span class="place hot">&nbsp;</span>
-					<span class="language_txt hot"><span class="target_language">中文</span><span>&nbsp;&nbsp;&nbsp;</span>
-						<select  multiple class="form-control languageSel" style="height: 50px;font-size: 12px">
-						  <option value="ZHS" selected="selected">中文</option>
-						  <option value="US" >English</option>
-						</select>
-					</span>
-				</div>
-				<div class="login_mid">
-					<div class="username_txt">用户名:</div>
-					<div class="username">
-						<input type="text" class="form-control" name="username" id="username">
+			<div class="login_cont">
+				<div class="login">				
+					<div class="login_top">
+						<span class="login_txt">登录</span>
+						<span class="place hot">&nbsp;</span>
+						<span class="language_txt hot"><span class="target_language">中文</span><span>&nbsp;&nbsp;&nbsp;</span>
+							<select  multiple class="form-control languageSel" style="height: 50px;font-size: 12px">
+							  <option value="ZHS" selected="selected">中文</option>
+							  <option value="US" >English</option>
+							</select>
+						</span>
 					</div>
-					<div  class="password_txt">口令:</div>
-					<div class="password">
-						<input type="password" class="form-control" name="password" id="password">
+					<div class="login_mid">
+						<div class="username_txt">用户名:</div>
+						<div class="username">
+							<input type="text" class="form-control" name="username" id="username">
+						</div>
+						<div  class="password_txt">口令:</div>
+						<div class="password">
+							<input type="password" class="form-control" name="password" id="password">
+						</div>
+						<div class="error_info"></div>
+						<div class="logint_btn" onclick="submit()">登录</div>
+						<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
 					</div>
-					<div class="error_info"></div>
-					<div class="logint_btn" onclick="submit()">登录</div>
-					<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
-					<a href="<%=basePath%>front/suggestions.jsp" target="_blank"  class="suggestions">投诉与建议</a>
 				</div>
+				<a href="<%=basePath%>front/suggestions.jsp" target="_blank" class="suggestion"></a>
 			</div>
 		</div>
 		<div class="c_2">
@@ -113,10 +115,11 @@
 				<a class="news_list" href="<%=basePath%>list/20/1?type=1" target="_blank"></a>
 				<a class="notic_list" href="<%=basePath%>list/20/1?type=2" target="_blank"></a>
 				<a class="rule_list"  href="<%=basePath%>list/20/1?type=3" target="_blank"></a>
+				<a class="culture_list"  href="<%=basePath%>list/20/1?type=5" target="_blank"></a>
 			</div>
 			<div class="c_2_mid">
 				<div class="news">
-					<img alt="" width="297" height="82" src="${news.showPicUrl}">
+					<img alt="" width="255" height="82" src="${news.showPicUrl}">
 					<div >
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${news.summary}...
 						<a class="show_detail" href="detail?id=${news.id}" target="_blank">[查看详情]</a>
@@ -133,6 +136,13 @@
 					<ul>
 						<c:forEach var="rule" items="${ruleList}" varStatus="s">
 							<li><div class="li_cont"><div class='point'></div><a  href="detail?id=${rule.id}" target="_blank">${rule.title}</a></div></li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="cultures">
+					<ul>
+						<c:forEach var="culture" items="${cultureList}" varStatus="s">
+							<li><div class="li_cont"><div class='point'></div><a  href="detail?id=${culture.id}" target="_blank">${culture.title}</a></div></li>
 						</c:forEach>
 					</ul>
 				</div>

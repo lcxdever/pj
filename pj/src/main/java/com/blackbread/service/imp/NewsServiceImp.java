@@ -47,7 +47,7 @@ public class NewsServiceImp implements NewsService {
 
 	private void newsProcess(News news) {
 		String onlyTxt = news.getOnlyTxt();
-		news.setSummary(onlyTxt.substring(0, onlyTxt.length() > 53 ? 53
+		news.setSummary(onlyTxt.substring(0, onlyTxt.length() > 50 ? 50
 				: onlyTxt.length()));
 		List<String> imageUrlList = ImageUtil.getImageUrl(news.getContent());
 		List<String> imageSrcList = ImageUtil.getImageSrc(imageUrlList);

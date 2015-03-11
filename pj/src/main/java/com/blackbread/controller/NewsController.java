@@ -57,6 +57,8 @@ public class NewsController {
 			break;
 		case 4:
 			url = "/pages/news/tops";
+		case 5:
+			url = "/pages/news/culture";
 			break;
 		default:
 			break;

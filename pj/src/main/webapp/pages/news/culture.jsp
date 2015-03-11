@@ -12,10 +12,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>顶部图片列表</title>
+<title>规范制度列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body onload="active(5);init();">
+<body onload="active(6);init()">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
@@ -23,7 +23,7 @@
 				<jsp:include page="/pages/left.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp?type=4'">新建顶部图片</button>
+				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/news/add.jsp?type=5'">新建供应链文化</button>
 				<div class="col-sm-2"  style="float: right;margin-right: 30px;display: none" >
 					<select class="form-control" name="type" id="typeSel" onchange="changeSel()">
 					  <option value="0">全部</option>

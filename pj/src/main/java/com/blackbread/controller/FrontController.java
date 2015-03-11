@@ -46,6 +46,8 @@ public class FrontController {
 		List<News> ruleList = newsService.list(pagination2, news);
 		news.setType(4);
 		List<News> topList = newsService.list(pagination2, news);
+		news.setType(5);
+		List<News> cultureList = newsService.list(pagination2, news);
 		
 		if(newsList.size()>0){
 			modelMap.put("news", newsList.get(0));
@@ -53,6 +55,7 @@ public class FrontController {
 		modelMap.put("noticList", noticList);
 		modelMap.put("ruleList", ruleList);
 		modelMap.put("topList", topList);
+		modelMap.put("cultureList", cultureList);
 		LoginUtil util = new LoginUtil();
 		modelMap.put("register", util.getRegistUrl());
 		return new ModelAndView("/front/index", modelMap);

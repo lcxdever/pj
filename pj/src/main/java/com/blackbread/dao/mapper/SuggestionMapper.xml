@@ -21,7 +21,7 @@
 	</select>
 	<select id="queryByID" resultType="com.blackbread.model.Suggestion"  parameterType="com.blackbread.model.User">
 		SELECT ID, TITLE, CONTENT,ANONYMOUS,SUPPLIER,CONTACTNAME,CONTACTWAY,CREATETIME FROM SUGGESTION
-		 WHERE ID=#{id}
+		 WHERE ID=#{id} 
 	</select>
 	<insert id="insert" parameterType="com.blackbread.model.Suggestion">
 		INSERT INTO

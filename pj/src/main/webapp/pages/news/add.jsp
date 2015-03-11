@@ -13,7 +13,7 @@
   </style>
 </head>
 <body onload="onLoad()">
-	<h1 style="width:200px; margin:10px auto 0px auto;">新闻添加</h1>
+	<h1 style="width:300px; margin:10px auto 0px auto;" id="head"></h1>
 	<div style="width: 1000px;margin: 20px auto;">
 		<form class="form-horizontal" role="form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/news/insert" onsubmit="return check();" name="form" method="POST">
 		  <div class="form-group">
@@ -30,6 +30,7 @@
 				  <option value="2">业务公告</option>
 				  <option value="3">制度规范</option>
 				  <option value="4">顶部图片</option>
+				  <option value="5">供应链文化</option>
 				</select>
 		    </div>
 		  </div>
@@ -57,9 +58,22 @@
 </body>
 <script type="text/javascript">
 function onLoad(){
-	$("#typeSel").val(${param.type})
-	if($("#typeSel").val()==4)
-	changeSel();
+	$("#typeSel").val("${param.type}");
+	var value=$("#typeSel").val();
+	if(value==1)
+		$("#head").html("公司新闻添加")
+	else if(value==2)
+		$("#head").html("业务公告添加")
+	else if(value==3)
+		$("#head").html("制度规范添加")
+	else if($("#typeSel").val()==4){
+		changeSel();
+		$("#head").html("顶部图片添加")
+	}
+	else
+		$("#head").html("供应链文化添加")
+		
+	
 }
 function changeSel(){
 	if($("#typeSel").val()==4){
@@ -84,13 +98,12 @@ function check(){
 	var txt=UM.getEditor('myEditor').getContentTxt();
 	var cont=UM.getEditor('myEditor').getContent();
 	if((txt==""||cont=="")&&$("#typeSel").val()!=4){
-		alert("内容不能为空")
+		alert("内容不能为空");
 		return false;
 	}
 	form.content.value=cont;
 	form.onlyTxt.value=txt;
 	return true;
-	
 }
 </script>
 </html>
