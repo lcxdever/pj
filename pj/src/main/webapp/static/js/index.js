@@ -54,10 +54,11 @@ function submit(){
 	    	if(data.url=="error")
 	    		$(".error_info").text("服务器异常请联系管理员");
 	    	else{
-	    		 window.open(data.url);
+	    		$("#enterurl").attr('href',data.url);
+	    		$("#unlogin").css("display","none");
+	    		$("#loginsuccessuser").html(username);
+	    		$("#loginsuccess").css("display","block");
 	    		 $(".error_info").text("");
-//	    		 $("#username").val("");
-//	    		 $("#password").val("");
 	    	}
 	    }
 	});

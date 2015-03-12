@@ -15,7 +15,7 @@
 <title>供应链文化列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body onload="active(6);init()">
+<body onload="active(4);init()">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
@@ -97,7 +97,7 @@
 	}
 	function page(pageNum){
 		var type=$("#typeSel").val();
-		var action ="<%=basePath%>news/list/10/"+pageNum;
+		var action ="<%=basePath%>news/list/10/"+pageNum+"?type=${type}";
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')

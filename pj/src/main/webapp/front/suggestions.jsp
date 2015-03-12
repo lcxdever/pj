@@ -53,7 +53,7 @@ function check(){
 </head>
 <body style="background-color: white;">
 	<jsp:include page="/static/pages/header.jsp"></jsp:include>
-	<div style="width: 830px;margin: auto;padding: 0px 0px 20px 0px">首页><font color="#366AC9" style="font-size: 14px">投诉与建议</font></div>
+	<div style="width: 830px;margin: auto;padding: 0px 0px 20px 0px">首页><font color="#366AC9" style="font-size: 14px">投诉与建议</font> <span style="margin-left: 200px;color: red">${msg}</span></div>	
 	<div class="center">
 		<div class="c_top">
 			<img alt="" src="<%=basePath%>static/images/suggestion_t.png">

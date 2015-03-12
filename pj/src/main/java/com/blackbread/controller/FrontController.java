@@ -75,7 +75,7 @@ public class FrontController {
 	@RequestMapping(value = "/detail")
 	public ModelAndView news(HttpServletRequest request,@ModelAttribute("news") News news,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		User user = (User) request.getSession().getAttribute("user");
+		String user = (String) request.getSession().getAttribute("loginUser");
 		news= newsService.queryByID(news);
 		modelMap.put("news", news);
 		if(news.getType()!=1&&user==null){
@@ -87,10 +87,13 @@ public class FrontController {
 	@ResponseBody
 	public String login(@RequestParam String username,
 			@RequestParam String password, @RequestParam String language,
-			ModelMap modelMap) throws Exception {
+			ModelMap modelMap,HttpServletRequest request) throws Exception {
 		LoginUtil util = new LoginUtil();
 		String url=util.getUrl(language, username, password);
 		modelMap.put("url", url);
+		if(!"error".equals(url)){
+			request.getSession().setAttribute("loginUser", username);
+		}
 		return JsonUtil.jsonFromObject(modelMap);
 	}
 }

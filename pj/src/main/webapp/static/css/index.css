@@ -45,7 +45,7 @@
 .languageSel option{height: 20px;font-size: 10px;}
 .languageSel option:hover {background-color: #B1D2F4;}
    .language_txt:hover .languageSel{display: block;}
-   .login_mid{width: 236px;margin: auto;}
+   .login_mid{width: 236px;margin:0px auto;}
    .username{height: 35px;background-image: url("../images/uname.png");margin-top: 10px;}
    .username input,.password input{width: 197px;float: right;border: none;height: 31px;margin-top: 1px;margin-right: 1px}
    .password{height: 35px;background-image: url("../images/password.png");margin-top: 10px;}
@@ -61,6 +61,10 @@
 .regist:visited,.show_detail:visited { color: #0068B7;  text-decoration: none}
 .regist:hover,.show_detail:hover{color: #FF7201; text-decoration: underline;}
 .regist:active,.show_detail:active { color: #ff7f24; text-decoration: underline;}
+.login_success_bg{padding-top: 60px;text-align:center;width: 194px;height: 187px;background-image: url("../images/login_success_bg.png");margin: 10px auto 0px auto;}
+.login_success_bg h5{font-weight: 600;color: #FF8A00;line-height: 30px}
+.login_success_bg p{color: #999999;}
+.enter_sys{float:left;width:236px;height: 39px;background-image: url("../images/enert_sys.png");margin: 10px auto 0px auto;cursor: pointer;}
 .suggestion{width: 30px;height: 126px;background-image: url("../images/suggestion.png");float: left;margin-top: 45px}
 .c_2{
    	width: 1100px;

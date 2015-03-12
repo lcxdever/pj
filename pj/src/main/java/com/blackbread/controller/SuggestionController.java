@@ -46,10 +46,18 @@ public class SuggestionController {
 			HttpServletRequest request, ModelMap modelMap) {
 		suggestionService.insert(suggestion);
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/suggestion/list/10/1", model);
+		model.put("msg", "投诉或建议成功");
+		return new ModelAndView("/front/suggestions", model);
 	}
 
+	@RequestMapping(value = "/detail")
+	public ModelAndView query(@ModelAttribute("suggestion") Suggestion suggestion,
+			HttpServletRequest request, ModelMap modelMap) {
+		suggestion=suggestionService.queryByID(suggestion);
+		Map<String, Object> model = new HashMap<String, Object>();
+		modelMap.put("suggestion", suggestion);
+		return new ModelAndView("/pages/suggestion/detail", model);
+	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView delete(@ModelAttribute("suggestion") Suggestion suggestion,
@@ -57,6 +65,6 @@ public class SuggestionController {
 		suggestionService.delete(suggestion);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
-		return new ModelAndView("redirect:/suggestion/list/10/1", model);
+		return new ModelAndView("redirect:/back/suggestion/list/10/1", model);
 	}
 }

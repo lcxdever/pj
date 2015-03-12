@@ -47,4 +47,8 @@ public class SuggestionServiceImp implements SuggestionService {
 		suggestionMapper.delete(suggestion);
 	}
 
+	@Override
+	public Suggestion queryByID(Suggestion suggestion) {
+		return suggestionMapper.queryByID(suggestion);
+	}
 }

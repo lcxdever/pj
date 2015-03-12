@@ -104,3 +104,41 @@ alter table NEWS
     minextents 1
     maxextents unlimited
   );
+-- Create table
+create table SUGGESTION
+(
+  ID          VARCHAR2(50) not null,
+  TITLE       VARCHAR2(200),
+  CONTENT     CLOB,
+  ANONYMOUS   NUMBER,
+  SUPPLIER    VARCHAR2(200),
+  CONTACTNAME VARCHAR2(200),
+  CONTACTWAY  VARCHAR2(1000),
+  CREATETIME  DATE
+)
+tablespace GODEWIND
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SUGGESTION
+  add constraint SUGGESTION_PK primary key (ID)
+  using index 
+  tablespace GODEWIND
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

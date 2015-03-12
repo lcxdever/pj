@@ -54,7 +54,8 @@
 					               <c:when test="${news.type==1}">公司新闻</c:when>  
 					               <c:when test="${news.type==2}">业务公告</c:when>  
 					               <c:when test="${news.type==3}">制度规范</c:when>  
-					               <c:otherwise>顶部图片</c:otherwise>  
+					               <c:when test="${news.type==4}">顶部图片</c:when>  
+					               <c:when test="${news.type==5}">供应链文化</c:when>  
 					           </c:choose> 
 							</td>
 							<td><fmt:formatDate value="${news.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date}</td>
@@ -97,7 +98,7 @@
 	}
 	function page(pageNum){
 		var type=$("#typeSel").val();
-		var action ="<%=basePath%>news/list/10/"+pageNum;
+		var action ="<%=basePath%>news/list/10/"+pageNum+"?type=${type}";
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')

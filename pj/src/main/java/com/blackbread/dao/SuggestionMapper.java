@@ -18,5 +18,5 @@ public interface SuggestionMapper {
 
 	public void delete(Suggestion suggestion);
 
-	public User queryByID(Suggestion suggestion);
+	public Suggestion queryByID(Suggestion suggestion);
 }
