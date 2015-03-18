@@ -34,10 +34,15 @@ public class SuggestionController {
 			@PathVariable int pageNo, @ModelAttribute("suggestion") Suggestion suggestion,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap modelMap) throws Exception {
-		Pagination pagination = new Pagination(pageNo, pageSize);
-		pagination = suggestionService.query(pagination, suggestion);
+		User user = (User) request.getSession().getAttribute("user");
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("pagination", pagination);
+		if(user==null||!user.getUserName().equals("admin")){
+			modelMap.put("message", "您无权查看此模块");
+		}else{
+			Pagination pagination = new Pagination(pageNo, pageSize);
+			pagination = suggestionService.query(pagination, suggestion);
+			model.put("pagination", pagination);
+		}
 		return new ModelAndView("/pages/suggestion/list", model);
 	}
 

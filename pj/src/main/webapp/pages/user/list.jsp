@@ -23,49 +23,56 @@
 				<jsp:include page="/pages/left.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/user/add.jsp'">新建用户</button>
-				<h5 style="color: red;" class="text-center">${param.msg}</h5>
-				<table class="table table-bordered nth-child table-hover">
-						<thead>
-							<tr>
-								<th style="width: 50px;">#</th>
-								<th style="width: 100px;">用户名</th>
-								<th style="width: 170px;">创建时间</th>
-								<th style="width: 60px;">创建人</th>
-								<th style="width: 100px;">操作</th>
-							</tr>
-						</thead>
-					<c:forEach var="user" items="${pagination.valuesList}" varStatus="s">
-						<tr>
-							<td>${s.index+1}</td>
-							<td>${user.userName}</td>
-							<td><fmt:formatDate value="${user.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date }</td>
-							<td>${user.createUser}</td>
-							<td>
-								<button type="button" class="btn  btn-xs btn-info" onclick="modify('${user.id}','${user.userName}')">修改</button>
-								<button type="button" class="btn btn-xs btn-danger"  onclick="del('${user.id}')">删除</button>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<nav  style="width: 500px;margin: auto;">
-				  <ul class="pagination">
-				    <c:choose>  
-		               <c:when test="${pagination.pageNo==1}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:when>  
-		               <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo-1}')"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:otherwise>  
-		           </c:choose> 
-				    <c:forEach var="page" items="${pagination.pages}" varStatus="s">
-			    	   <c:choose>  
-			               <c:when test="${page==pagination.pageNo}"> <li  class="active"><a href="javascript:void(0)" onclick="page('${page}')">${page}</a></li></c:when>  
-			               <c:otherwise><li><a href="javascript:void(0)" onclick="page('${page}')">${page}</a></li></a></c:otherwise>  
-			           </c:choose> 
-				    </c:forEach>
-				     <c:choose>  
-		               <c:when test="${pagination.pageNo==pagination.totalPage}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:when>  
-		               <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo+1}')"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:otherwise>  
-		           </c:choose> 
-				  </ul>
-				</nav>
+				<c:choose>
+					 <c:when test="${message!=null}">
+				   	    ${message}
+				    </c:when>
+					 <c:otherwise>
+						<button type="button" class="btn btn-success" style="margin-bottom: 20px;margin-right: 10px;float: right;" onclick="location.href='<%=basePath%>pages/user/add.jsp'">新建用户</button>
+						<h5 style="color: red;" class="text-center">${param.msg}</h5>
+						<table class="table table-bordered nth-child table-hover">
+								<thead>
+									<tr>
+										<th style="width: 50px;">#</th>
+										<th style="width: 100px;">用户名</th>
+										<th style="width: 170px;">创建时间</th>
+										<th style="width: 60px;">创建人</th>
+										<th style="width: 100px;">操作</th>
+									</tr>
+								</thead>
+							<c:forEach var="user" items="${pagination.valuesList}" varStatus="s">
+								<tr>
+									<td>${s.index+1}</td>
+									<td>${user.userName}</td>
+									<td><fmt:formatDate value="${user.createTime }" var="date" pattern="yyyy-MM-dd HH:mm:ss"/>${date }</td>
+									<td>${user.createUser}</td>
+									<td>
+										<button type="button" class="btn  btn-xs btn-info" onclick="modify('${user.id}','${user.userName}')">修改</button>
+										<button type="button" class="btn btn-xs btn-danger"  onclick="del('${user.id}')">删除</button>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+						<nav  style="width: 500px;margin: auto;">
+						  <ul class="pagination">
+						    <c:choose>  
+				               <c:when test="${pagination.pageNo==1}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:when>  
+				               <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo-1}')"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:otherwise>  
+				           </c:choose> 
+						    <c:forEach var="page" items="${pagination.pages}" varStatus="s">
+					    	   <c:choose>  
+					               <c:when test="${page==pagination.pageNo}"> <li  class="active"><a href="javascript:void(0)" onclick="page('${page}')">${page}</a></li></c:when>  
+					               <c:otherwise><li><a href="javascript:void(0)" onclick="page('${page}')">${page}</a></li></a></c:otherwise>  
+					           </c:choose> 
+						    </c:forEach>
+						     <c:choose>  
+				               <c:when test="${pagination.pageNo==pagination.totalPage}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:when>  
+				               <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo+1}')"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:otherwise>  
+				           </c:choose> 
+						  </ul>
+						</nav>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

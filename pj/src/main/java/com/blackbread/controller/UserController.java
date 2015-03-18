@@ -32,10 +32,15 @@ public class UserController {
 			@PathVariable int pageNo, @ModelAttribute("user") User user,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap modelMap) throws Exception {
-		Pagination pagination = new Pagination(pageNo, pageSize);
-		pagination = userService.query(pagination, user);
+		User loginUser = (User) request.getSession().getAttribute("user");
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("pagination", pagination);
+		if(loginUser==null||!loginUser.getUserName().equals("admin")){
+			modelMap.put("message", "您无权查看此模块");
+		}else{
+			Pagination pagination = new Pagination(pageNo, pageSize);
+			pagination = userService.query(pagination, user);
+			model.put("pagination", pagination);
+		}
 		return new ModelAndView("/pages/user/list", model);
 	}
 
