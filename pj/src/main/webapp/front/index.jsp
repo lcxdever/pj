@@ -93,7 +93,14 @@
 							</select>
 						</span>
 					</div>
-					<div class="login_mid" id="unlogin" style="display: block">
+					<c:choose>  
+		               <c:when test="${sessionScope.loginUser!=null}">
+		               		<div class="login_mid" id="unlogin" style="display: none">
+		               </c:when>
+		               <c:otherwise>
+		               		<div class="login_mid" id="unlogin" style="display: block">
+		               </c:otherwise>
+		            </c:choose>
 						<div class="username_txt">用户名:</div>
 						<div class="username">
 							<input type="text" class="form-control" name="username" id="username">
@@ -106,12 +113,19 @@
 						<div class="logint_btn" onclick="submit()">登录</div>
 						<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
 					</div>
-					<div class="login_mid" style="display: none" id="loginsuccess">
+					<c:choose>  
+		               <c:when test="${sessionScope.loginUser!=null}">
+		               		<div class="login_mid" style="display: block" id="loginsuccess">
+		               </c:when>
+		               <c:otherwise>
+		               		<div class="login_mid" style="display: none" id="loginsuccess">
+		               </c:otherwise>
+		            </c:choose>
 						<div class="login_success_bg">
-								<h5 >欢迎您，<span id="loginsuccessuser"></span></h5>
+								<h5 >欢迎您，<span id="loginsuccessuser">${sessionScope.loginUser}</span></h5>
 								<p style="line-height: 12px;">您已成功登录系统</p>
 						</div>
-						<a class="enter_sys" id="enterurl" target="_blank"></a>
+						<a class="enter_sys" id="enterurl" href="${sessionScope.loginUrl}"></a>
 					</div>
 				</div>
 				<a href="<%=basePath%>front/suggestions.jsp" target="_blank" class="suggestion"></a>

@@ -93,6 +93,7 @@ public class FrontController {
 		modelMap.put("url", url);
 		if(!"error".equals(url)){
 			request.getSession().setAttribute("loginUser", username);
+			request.getSession().setAttribute("loginUrl", url);
 		}
 		return JsonUtil.jsonFromObject(modelMap);
 	}

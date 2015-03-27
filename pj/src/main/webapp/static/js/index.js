@@ -58,7 +58,7 @@ function submit(){
 	    		$("#unlogin").css("display","none");
 	    		$("#loginsuccessuser").html(username);
 	    		$("#loginsuccess").css("display","block");
-	    		 $(".error_info").text("");
+	    		$(".error_info").text("");
 	    	}
 	    }
 	});
