@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.User;
@@ -21,15 +22,15 @@ import com.blackbread.service.UserService;
 import com.blackbread.utils.Pagination;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/back/user")
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class);
 	@Autowired
 	UserService userService;
-
-	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
-	public ModelAndView list(@PathVariable int pageSize,
-			@PathVariable int pageNo, @ModelAttribute("user") User user,
+	private final String listPage="redirect:/back/user/list?pageSize=10&pageNo=1";
+	@RequestMapping(value = "/list")
+	public ModelAndView list(@RequestParam int pageSize,
+			@RequestParam int pageNo, @ModelAttribute("user") User user,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap modelMap) throws Exception {
 		User loginUser = (User) request.getSession().getAttribute("user");
@@ -52,7 +53,7 @@ public class UserController {
 		userService.insert(user);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/user/list/10/1", model);
+		return new ModelAndView(listPage, model);
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -61,7 +62,7 @@ public class UserController {
 		userService.modify(user);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "修改成功");
-		return new ModelAndView("redirect:/user/list/10/1", model);
+		return new ModelAndView(listPage, model);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -70,7 +71,7 @@ public class UserController {
 		userService.delete(user);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
-		return new ModelAndView("redirect:/user/list/10/1", model);
+		return new ModelAndView(listPage, model);
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(
@@ -86,7 +87,7 @@ public class UserController {
 		if (success) {
 			model.put("msg", "登录成功");
 			request.getSession().setAttribute("user", user);
-			return new ModelAndView("redirect:/user/list/10/1", model);
+			return new ModelAndView(listPage, model);
 		} else {
 			model.put("msg", "用户名密码不符合");
 			model.put("status", "error");

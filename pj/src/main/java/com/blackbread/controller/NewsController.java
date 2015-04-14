@@ -24,15 +24,16 @@ import com.blackbread.service.NewsService;
 import com.blackbread.utils.Pagination;
 
 @Controller
-@RequestMapping(value = "/news")
+@RequestMapping(value = "/back/news")
 public class NewsController {
 	private static final Logger logger = Logger.getLogger(NewsController.class);
 	@Autowired
 	NewsService newsService;
+	private final String listPage="redirect:/back/news/list?pageSize=10&pageNo=1";
 
-	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
-	public ModelAndView list(@PathVariable int pageSize,
-			@PathVariable int pageNo, @ModelAttribute("news") News news,
+	@RequestMapping(value = "/list")
+	public ModelAndView list(@RequestParam int pageSize,
+			@RequestParam int pageNo, @ModelAttribute("news") News news,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap modelMap) throws Exception {
 		Pagination pagination = new Pagination(pageNo, pageSize);
@@ -78,7 +79,7 @@ public class NewsController {
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "添加成功");
-		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
+		return new ModelAndView(listPage+"&type="+news.getType(), model);
 	}
 
 	@RequestMapping(value = "/query4modify", method = RequestMethod.POST)
@@ -99,7 +100,7 @@ public class NewsController {
 				.getRealPath("/"));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "修改成功");
-		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
+		return new ModelAndView(listPage+"&type="+news.getType(), model);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -108,6 +109,6 @@ public class NewsController {
 		newsService.delete(news);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("msg", "删除成功");
-		return new ModelAndView("redirect:/news/list/10/1?type="+news.getType(), model);
+		return new ModelAndView(listPage+"&type="+news.getType(), model);
 	}
 }

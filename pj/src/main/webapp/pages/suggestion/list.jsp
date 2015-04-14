@@ -16,7 +16,7 @@
 <title>投诉与建议列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body onload="active(7)">
+<body onload="active('suggestion_manager_menu')">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 	 	<div class="row">

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.blackbread.model.Menu;
 import com.blackbread.model.Suggestion;
 import com.blackbread.model.User;
 import com.blackbread.service.SuggestionService;
@@ -24,28 +25,20 @@ import com.blackbread.service.UserService;
 import com.blackbread.utils.Pagination;
 
 @Controller
-@RequestMapping(value = "/back/suggestion")
-public class SuggestionController {
-	private static final Logger logger = Logger.getLogger(SuggestionController.class);
+@RequestMapping(value = "/back/menu")
+public class MenuController {
+	private static final Logger logger = Logger.getLogger(MenuController.class);
 	@Autowired
 	SuggestionService suggestionService;
-	private final String listPage="redirect:/back/suggestion/list?pageSize=10&pageNo=1";
+	private final String listPage="redirect:/back/menu/list";
 
 	@RequestMapping(value = "/list")
-	public ModelAndView list(@RequestParam int pageSize,
-			@RequestParam int pageNo, @ModelAttribute("suggestion") Suggestion suggestion,
+	public ModelAndView list(@ModelAttribute("menu") Menu menu,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap modelMap) throws Exception {
 		User user = (User) request.getSession().getAttribute("user");
 		Map<String, Object> model = new HashMap<String, Object>();
-		if(user==null||!user.getUserName().equals("admin")){
-			modelMap.put("message", "您无权查看此模块");
-		}else{
-			Pagination pagination = new Pagination(pageNo, pageSize);
-			pagination = suggestionService.query(pagination, suggestion);
-			model.put("pagination", pagination);
-		}
-		return new ModelAndView("/pages/suggestion/list", model);
+		return new ModelAndView("/pages/menu/list", model);
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

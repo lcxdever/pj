@@ -15,7 +15,7 @@
 <body onload="onLoad()">
 	<h1 style="width:300px; margin:10px auto 0px auto;" id="head"></h1>
 	<div style="width: 1000px;margin: 20px auto;">
-		<form class="form-horizontal" role="form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/news/insert" onsubmit="return check();" name="form" method="POST">
+		<form class="form-horizontal" role="form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/back/news/insert" onsubmit="return check();" name="form" method="POST">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
 		    <div class="col-sm-10" >

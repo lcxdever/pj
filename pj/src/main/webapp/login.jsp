@@ -32,7 +32,7 @@
 				<strong><p>${msg}</p></strong>
 			</div>
 		</c:if>
-		<form class="form-horizontal form-signin" role="form" action="<%=path%>/user/login"
+		<form class="form-horizontal form-signin" role="form" action="<%=path%>/back/user/login"
 			method="post">
 			<h2 class="form-signin-heading">金风科技后台管理</h2>
 			<div class="form-group">

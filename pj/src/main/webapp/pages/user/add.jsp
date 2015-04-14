@@ -12,7 +12,7 @@
 <body>
 	<h1 style="width:200px; margin:50px auto 0px auto;">新用户添加</h1>
 	<div style="width: 600px;margin: 50px auto;">
-		<form role="form" action="<%=request.getContextPath()%>/user/insert" onsubmit="return check();" name="form" method="POST">
+		<form role="form" action="<%=request.getContextPath()%>/back/user/insert" onsubmit="return check();" name="form" method="POST">
 			<div class="form-group">
 				<label for="exampleInputEmail1">用户名</label> <input
 					  class="form-control" id="exampleInputEmail1" name="userName"

@@ -12,7 +12,7 @@
 <body>
 	<h1 style="width:200px; margin:50px auto 0px auto;">修改用户</h1>
 	<div style="width: 600px;margin: 50px auto;">
-		<form role="form" action="<%=request.getContextPath()%>/user/modify" onsubmit="return check();" name="form" method="POST">
+		<form role="form" action="<%=request.getContextPath()%>/back/user/modify" onsubmit="return check();" name="form" method="POST">
 			<input type="hidden" name="id" value="${param.id}">
 			<div class="form-group">
 				<label for="exampleInputEmail1">用户名</label> <input readonly="readonly"

@@ -15,7 +15,7 @@
 <title>用户列表</title>
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 </head>
-<body onload="active(1)">
+<body onload="active('user_manager_menu')">
 	<jsp:include page="/static/pages/navibar.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
@@ -79,7 +79,7 @@
 </body>
 <script type="text/javascript">
 	function page(pageNum){
-		var action ="<%=basePath%>user/list/10/"+pageNum;
+		var action ="<%=basePath%>back/user/list?pageSize=10&pageNum="+pageNum;
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')
@@ -107,7 +107,7 @@
 	}
 	function del(id){
 		if(window.confirm("您确认要删除吗")){
-		var action = "<%=basePath%>user/delete";
+		var action = "<%=basePath%>back/user/delete";
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')

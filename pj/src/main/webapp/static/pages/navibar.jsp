@@ -17,7 +17,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<%=navibasePath%>user/logout/">退出</a></li>
+				<li><a href="<%=navibasePath%>back/user/logout/">退出</a></li>
 			</ul>
 		</div>
 	</div>
