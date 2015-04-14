@@ -65,7 +65,7 @@
 					  </div>
 					</div>
 					<div style="margin-top: 10px" data-example-id="list-group-anchors">
-					    <div class="list-group">
+					    <div class="list-group" id="menus">
 					      <a href="#" class="list-group-item">
 					        Cras justo odio
 					      </a>
@@ -86,5 +86,11 @@
 	</div>
 </body>
 <script type="text/javascript">
+function menuClick(e){
+	 $("#menus a").removeClass("active");
+	 $(this).addClass("active");
+	 $("#menus").append($('<a href="#" class="list-group-item">test133</a>').click(menuClick));
+}
+$("#menus a").click(menuClick);
 </script>
 </html>
