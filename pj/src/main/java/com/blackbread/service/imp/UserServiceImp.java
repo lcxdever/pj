@@ -61,10 +61,15 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean login(User user) {
 		String passWord=user.getPassWord();
-		user=userMapper.queryByID(user);
+		user=userMapper.queryByUserName(user);
 		if(user==null)
 			return false;
 		return Coder.validatePassword(user.getPassWord(), passWord);
+	}
+
+	@Override
+	public User queryUserByUserName(User user) {
+		return userMapper.queryByUserName(user);
 	}
 
 }

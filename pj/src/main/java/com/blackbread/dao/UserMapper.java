@@ -17,5 +17,5 @@ public interface UserMapper {
 
 	public void delete(User user);
 
-	public User queryByID(User user);
+	public User queryByUserName(User user);
 }

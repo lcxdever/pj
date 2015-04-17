@@ -7,8 +7,9 @@ public class Menu implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String code;
-	private String content;
+	private String name;
 	private String url;
+	private Date createTime;
 
 	public String getId() {
 		return id;
@@ -26,12 +27,13 @@ public class Menu implements Serializable {
 		this.code = code;
 	}
 
-	public String getContent() {
-		return content;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getUrl() {
@@ -44,6 +46,14 @@ public class Menu implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }
