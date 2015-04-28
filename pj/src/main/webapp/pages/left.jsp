@@ -14,7 +14,7 @@
 	<li id="tops_manager_menu"><a href="<%=basePath%>back/news/list?pageSize=10&pageNo=1&type=4">顶部图片管理</a></li>
 	<li id="culture_manager_menu"><a href="<%=basePath%>back/news/list?pageSize=10&pageNo=1&type=5">供应链文化管理</a></li>
 	<li id="suggestion_manager_menu"><a href="<%=basePath%>back/suggestion/list?pageSize=10&pageNo=1">投诉与建议</a></li>
-	<li id="menu_manager_menu"><a href="<%=basePath%>back/menu/list">菜单权限管理</a></li>
+	<%-- <li id="menu_manager_menu"><a href="<%=basePath%>back/menu/list">菜单权限管理</a></li> --%>
 	<li><a href="javascript:void(0)">关于系统</a></li>
 </ul>
 <script type="text/javascript">

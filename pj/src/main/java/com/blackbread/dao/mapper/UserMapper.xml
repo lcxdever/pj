@@ -7,22 +7,23 @@
 		<result column="PASSWORD" property="passWord" jdbcType="VARCHAR" />
 		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
 		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
+		<result column="ROLEID" property="roleID" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="query" resultType="com.blackbread.model.User"  parameterType="java.util.HashMap">
 	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
-		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER ORDER BY CREATETIME
+		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER,ROLEID FROM T_USER ORDER BY CREATETIME
 	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
 	</select>
 	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
 		SELECT count(1) FROM T_USER ORDER BY CREATETIME
 	</select>
 	<select id="queryByID" resultType="com.blackbread.model.User"  parameterType="com.blackbread.model.User">
-		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER FROM T_USER WHERE USERNAME=#{userName}
+		SELECT ID, USERNAME, PASSWORD,CREATETIME,CREATEUSER,ROLEID FROM T_USER WHERE USERNAME=#{userName}
 	</select>
 	<insert id="insert" parameterType="com.blackbread.model.User">
 		insert into
-		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER)
-		values(#{id},#{userName},#{passWord},#{createTime},#{createUser})
+		T_USER(ID,USERNAME,PASSWORD,CREATETIME,CREATEUSER,ROLEID)
+		values(#{id},#{userName},#{passWord},#{createTime},#{createUser},#{roleID})
 	</insert>
 	<update id="modify" parameterType="com.blackbread.model.User">  
 	    UPDATE T_USER  
@@ -32,7 +33,10 @@
 	        </if>  
 	        <if test="passWord != null">  
 	            PASSWORD = #{passWord},  
-	        </if>  
+	        </if>
+	         <if test="roleID != null">  
+	            ROLEID = #{roleID} 
+	        </if>
 	    </set>  
 	    where ID = #{id}  
 	</update>  

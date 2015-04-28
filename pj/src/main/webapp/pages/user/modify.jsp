@@ -11,13 +11,27 @@
 </head>
 <body>
 	<h1 style="width:200px; margin:50px auto 0px auto;">修改用户</h1>
-	<div style="width: 600px;margin: 50px auto;">
+	<div style="width: 600px;margin: 20px auto;">
 		<form role="form" action="<%=request.getContextPath()%>/back/user/modify" onsubmit="return check();" name="form" method="POST">
 			<input type="hidden" name="id" value="${param.id}">
 			<div class="form-group">
 				<label for="exampleInputEmail1">用户名</label> <input readonly="readonly"
 					  class="form-control" id="exampleInputEmail1" name="userName" value="${param.userName}"
 					placeholder="输入用户名">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">用户组选择</label>
+					<select class="form-control" name="roleID" id="roleID" placeholder="请选择用户组">
+					  <option value="0">普通用户</option>
+					  <c:choose>  
+			             <c:when test="${param.roleID ==2}">
+			             	<option value="2" selected="selected">高级用户</option>
+			             </c:when>
+			             <c:otherwise>
+			             	<option value="2">高级用户</option>
+			             </c:otherwise>
+			          </c:choose>
+					</select>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputPassword1">密码</label> <input  name="passWord"
@@ -29,7 +43,7 @@
 					type="password" class="form-control" id="exampleInputPassword1"
 					placeholder="再输入一次密码">
 			</div>
-			<button type="submit"  class="btn btn-default">提交</button>
+			<button type="submit"  class="btn btn-default" style="float: right;width: 120px">提交</button>
 		</form>
 	</div>
 </body>

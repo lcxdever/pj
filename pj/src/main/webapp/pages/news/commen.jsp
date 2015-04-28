@@ -46,7 +46,7 @@
   <ul class="pagination">
     <c:choose>  
              <c:when test="${pagination.pageNo==1}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:when>  
-             <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo-1}')"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:otherwise>  
+             <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pagination.pageNo-1}')"><span aria-hidden="true">上一页</span><span class="sr-only">Previous</span></a></li></c:otherwise>  
          </c:choose> 
     <c:forEach var="page" items="${pagination.pages}" varStatus="s">
    	   <c:choose>  
@@ -56,7 +56,7 @@
     </c:forEach>
      <c:choose>  
              <c:when test="${pagination.pageNo==pagination.totalPage}"> <li class="disabled"><a href="javascript:void(0)"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:when>  
-             <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pageNo+1}')"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:otherwise>  
+             <c:otherwise> <li><a href="javascript:void(0)" onclick="page('${pagination.pageNo+1}')"><span aria-hidden="true">下一页</span><span class="sr-only">Next</span></a></li></c:otherwise>  
          </c:choose> 
   </ul>
 </nav>

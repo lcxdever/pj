@@ -142,3 +142,7 @@ alter table SUGGESTION
     minextents 1
     maxextents unlimited
   );
+  
+  --20150422新加
+alter table t_user add roleid varchar2(20) default '0';
+update t_user set roleid='1' where username='admin';

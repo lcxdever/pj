@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.User;
@@ -35,7 +35,7 @@ public class UserController {
 			ModelMap modelMap) throws Exception {
 		User loginUser = (User) request.getSession().getAttribute("user");
 		Map<String, Object> model = new HashMap<String, Object>();
-		if(loginUser==null||!loginUser.getUserName().equals("admin")){
+		if(loginUser==null||!"1".equals(loginUser.getRoleID())){
 			modelMap.put("message", "您无权查看此模块");
 		}else{
 			Pagination pagination = new Pagination(pageNo, pageSize);
@@ -64,7 +64,21 @@ public class UserController {
 		model.put("msg", "修改成功");
 		return new ModelAndView(listPage, model);
 	}
-
+	@RequestMapping(value = "/modifyRole", method = RequestMethod.POST)
+	@ResponseBody
+	public Object modifyRole(@ModelAttribute("user") User user,
+			HttpServletRequest request, ModelMap modelMap) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		try {
+			userService.modify(user);
+			model.put("desc", "修改成功");
+			model.put("success", true);
+		} catch (Exception e) {
+			model.put("desc", "修改失败");
+			model.put("success", false);
+		}
+		return model;
+	}
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView delete(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
@@ -82,9 +96,9 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
-		boolean success = userService.login(user);
+		user = userService.login(user);
 		Map<String, Object> model = new HashMap<String, Object>();
-		if (success) {
+		if (user!=null) {
 			model.put("msg", "登录成功");
 			request.getSession().setAttribute("user", user);
 			return new ModelAndView(listPage, model);

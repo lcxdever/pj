@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,12 +58,15 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public boolean login(User user) {
+	public User login(User user) {
 		String passWord=user.getPassWord();
 		user=userMapper.queryByID(user);
 		if(user==null)
-			return false;
-		return Coder.validatePassword(user.getPassWord(), passWord);
+			return null;
+		if(Coder.validatePassword(user.getPassWord(), passWord))
+			return user;
+		else 
+			return null;
 	}
 
 }

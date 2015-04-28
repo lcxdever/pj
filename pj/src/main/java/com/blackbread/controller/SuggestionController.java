@@ -38,7 +38,7 @@ public class SuggestionController {
 			ModelMap modelMap) throws Exception {
 		User user = (User) request.getSession().getAttribute("user");
 		Map<String, Object> model = new HashMap<String, Object>();
-		if(user==null||!user.getUserName().equals("admin")){
+		if(user==null||(!"1".equals(user.getRoleID())&&!"2".equals(user.getRoleID()))){
 			modelMap.put("message", "您无权查看此模块");
 		}else{
 			Pagination pagination = new Pagination(pageNo, pageSize);

@@ -10,6 +10,7 @@ public class User implements Serializable {
 	private String passWord;
 	private Date createTime;
 	private String createUser;
+	private String roleID;
 
 	public String getId() {
 		return id;
@@ -49,6 +50,14 @@ public class User implements Serializable {
 
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
+	}
+
+	public String getRoleID() {
+		return roleID;
+	}
+
+	public void setRoleID(String roleID) {
+		this.roleID = roleID;
 	}
 
 }
