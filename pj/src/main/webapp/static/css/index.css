@@ -61,11 +61,14 @@
 .regist:visited,.show_detail:visited { color: #0068B7;  text-decoration: none}
 .regist:hover,.show_detail:hover{color: #FF7201; text-decoration: underline;}
 .regist:active,.show_detail:active { color: #ff7f24; text-decoration: underline;}
-.login_success_bg{padding-top: 60px;text-align:center;width: 194px;height: 187px;background-image: url("../images/login_success_bg.png");margin: 10px auto 0px auto;}
+.login_success_bg{padding-top: 50px;text-align:center;width: 194px;height: 187px;background-image: url("../images/login_success_bg.png");margin: 10px auto 0px auto;}
 .login_success_bg h5{font-weight: 600;color: #FF8A00;line-height: 30px}
 .login_success_bg p{color: #999999;}
+.suggestion_info{color: #FF8A00 !important;display: none}
+.suggestion_info a{text-decoration:underline;}
 .enter_sys{float:left;width:236px;height: 39px;background-image: url("../images/enert_sys.png");margin: 10px auto 0px auto;cursor: pointer;}
 .suggestion{width: 30px;height: 126px;background-image: url("../images/suggestion.png");float: left;margin-top: 45px}
+.show_suggestion{width: 30px;height: 136px;background-image: url("../images/show_sugge.png");float: left;margin-top: 5px;display: none}
 .c_2{
    	width: 1100px;
    	height: 240px;

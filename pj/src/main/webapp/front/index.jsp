@@ -94,7 +94,7 @@
 						</span>
 					</div>
 					<c:choose>  
-		               <c:when test="${sessionScope.loginUser!=null}">
+		               <c:when test="${sessionScope.frontUser!=null}">
 		               		<div class="login_mid" id="unlogin" style="display: none">
 		               </c:when>
 		               <c:otherwise>
@@ -114,7 +114,7 @@
 						<a href="javascript:void(0)" onclick="window.open('${register}')" class="regist">供应商注册</a>
 					</div>
 					<c:choose>  
-		               <c:when test="${sessionScope.loginUser!=null}">
+		               <c:when test="${sessionScope.frontUser!=null}">
 		               		<div class="login_mid" style="display: block" id="loginsuccess">
 		               </c:when>
 		               <c:otherwise>
@@ -122,13 +122,30 @@
 		               </c:otherwise>
 		            </c:choose>
 						<div class="login_success_bg">
-								<h5 >欢迎您，<span id="loginsuccessuser">${sessionScope.loginUser}</span></h5>
+								<h5 >欢迎您，<span id="loginsuccessuser">${sessionScope.frontUser.loginUser}</span></h5>
 								<p style="line-height: 12px;">您已成功登录系统</p>
+								<c:choose>  
+		               				<c:when test="${sessionScope.frontUser.role=='suggestion_admin'}">
+		               					<p class="suggestion_info" style="display: block;">
+		               				</c:when>
+		               				<c:otherwise>
+		               					<p class="suggestion_info">
+		               				</c:otherwise>
+		               			</c:choose>
+									您有<span class="suggestion_num">${sessionScope.frontUser.suggestion_count}</span>条新投诉&nbsp;&nbsp;<a target="_blank" href="<%=basePath%>back/suggestion/list?pageSize=10&pageNo=1">查看</a></p>
 						</div>
-						<a class="enter_sys" id="enterurl" href="${sessionScope.loginUrl}"></a>
+						<a class="enter_sys" id="enterurl" href="${sessionScope.frontUser.loginUrl}"></a>
 					</div>
 				</div>
 				<a href="<%=basePath%>front/suggestions.jsp" target="_blank" class="suggestion"></a>
+				<c:choose>  
+       				<c:when test="${sessionScope.frontUser.role=='suggestion_admin'}">
+       					<a href="<%=basePath%>back/suggestion/list?pageSize=10&pageNo=1" target="_blank" class="show_suggestion" style="display: block;"></a>
+       				</c:when>
+       				<c:otherwise>
+       					<a href="<%=basePath%>back/suggestion/list?pageSize=10&pageNo=1" target="_blank" class="show_suggestion"></a>
+       				</c:otherwise>
+       			</c:choose>
 			</div>
 		</div>
 		<div class="c_2">

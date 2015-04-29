@@ -59,6 +59,11 @@ function submit(){
 	    		$("#loginsuccessuser").html(username);
 	    		$("#loginsuccess").css("display","block");
 	    		$(".error_info").text("");
+	    		if(data.role=="suggestion_admin"){
+	    			$(".suggestion_info").css("display","block");
+	    			$(".show_suggestion").css("display","block");
+	    			$(".suggestion_num").html(data.suggestion_count);
+	    		}
 	    	}
 	    }
 	});

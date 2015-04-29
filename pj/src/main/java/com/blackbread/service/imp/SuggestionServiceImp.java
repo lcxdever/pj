@@ -51,4 +51,9 @@ public class SuggestionServiceImp implements SuggestionService {
 	public Suggestion queryByID(Suggestion suggestion) {
 		return suggestionMapper.queryByID(suggestion);
 	}
+
+	@Override
+	public long queryCount(Suggestion suggestion) {
+		return suggestionMapper.count(new HashMap<String, Object>());
+	}
 }

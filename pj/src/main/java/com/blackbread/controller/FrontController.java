@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blackbread.model.News;
+import com.blackbread.model.Suggestion;
 import com.blackbread.model.User;
 import com.blackbread.service.NewsService;
+import com.blackbread.service.SuggestionService;
+import com.blackbread.service.UserService;
 import com.blackbread.utils.JsonUtil;
 import com.blackbread.utils.LoginUtil;
 import com.blackbread.utils.Pagination;
@@ -32,6 +35,10 @@ public class FrontController {
 			.getLogger(FrontController.class);
 	@Autowired
 	NewsService newsService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	SuggestionService suggestionService;
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
@@ -75,7 +82,7 @@ public class FrontController {
 	@RequestMapping(value = "/detail")
 	public ModelAndView news(HttpServletRequest request,@ModelAttribute("news") News news,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		String user = (String) request.getSession().getAttribute("loginUser");
+		Map user = (Map) request.getSession().getAttribute("frontUser");
 		news= newsService.queryByID(news);
 		modelMap.put("news", news);
 		if(news.getType()!=1&&user==null){
@@ -92,8 +99,21 @@ public class FrontController {
 		String url=util.getUrl(language, username, password);
 		modelMap.put("url", url);
 		if(!"error".equals(url)){
-			request.getSession().setAttribute("loginUser", username);
-			request.getSession().setAttribute("loginUrl", url);
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("loginUser", username);
+			map.put("loginUrl", url);
+			User user=new User();
+			user.setUserName(username);
+			user=userService.getUserByUserName(user);
+			if(user!=null&&"2".equals(user.getRoleID())){
+				request.getSession().setAttribute("user", user);
+				modelMap.put("role", "suggestion_admin");
+				long suggestiomCount=suggestionService.queryCount(new Suggestion());
+				modelMap.put("suggestion_count",suggestiomCount);
+				map.put("role", "suggestion_admin");
+				map.put("suggestion_count", suggestiomCount);
+			}
+			request.getSession().setAttribute("frontUser", map);
 		}
 		return JsonUtil.jsonFromObject(modelMap);
 	}

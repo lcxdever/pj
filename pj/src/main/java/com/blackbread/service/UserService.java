@@ -13,4 +13,6 @@ public interface UserService {
 	public void delete(User user);
 
 	public User login(User user);
+	
+	public User getUserByUserName(User user);
 }

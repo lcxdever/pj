@@ -95,7 +95,7 @@
 </body>
 <script type="text/javascript">
 	function page(pageNum){
-		var action ="<%=basePath%>back/user/list?pageSize=10&pageNum="+pageNum;
+		var action ="<%=basePath%>back/user/list?pageSize=10&pageNo="+pageNum;
 	    var form = $("<form></form>")
 	        form.attr('action',action)
 	        form.attr('method','post')
