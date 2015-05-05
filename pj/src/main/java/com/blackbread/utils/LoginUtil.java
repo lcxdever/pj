@@ -63,17 +63,17 @@ public class LoginUtil {
 
 	public String getResult(String userName, String password) {
 		try {
-			conn = getConn();
-			stmt = conn.createStatement();
-			String sql = "select fnd_web_sec.validate_login('" + userName
-					+ "', '" + password + "')  from dual";
-			rs = stmt.executeQuery(sql);
-			if (rs.next()) {
-				return rs.getString(1);
-			} else {
-				return "N";
-			}
-//			return "Y";
+//			conn = getConn();
+//			stmt = conn.createStatement();
+//			String sql = "select fnd_web_sec.validate_login('" + userName
+//					+ "', '" + password + "')  from dual";
+//			rs = stmt.executeQuery(sql);
+//			if (rs.next()) {
+//				return rs.getString(1);
+//			} else {
+//				return "N";
+//			}
+			return "Y";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "N";

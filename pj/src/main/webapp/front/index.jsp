@@ -20,7 +20,7 @@
 <jsp:include page="/static/pages/bootstrap.jsp"></jsp:include>
 <link href="<%=request.getContextPath()%>/static/css/index.css" rel="stylesheet">
 </head>
-<body>
+<body >
 	<jsp:include page="/static/pages/header.jsp"></jsp:include>
 	<div class="center">
 		<div class="c_1">

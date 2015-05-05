@@ -39,6 +39,7 @@ public class FrontController {
 	UserService userService;
 	@Autowired
 	SuggestionService suggestionService;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
@@ -65,6 +66,24 @@ public class FrontController {
 		modelMap.put("cultureList", cultureList);
 		LoginUtil util = new LoginUtil();
 		modelMap.put("register", util.getRegistUrl());
+		
+		Map frontUser = (Map) request.getSession().getAttribute("frontUser");
+		if(frontUser!=null){
+			User user=new User();
+			user.setUserName((String)frontUser.get("loginUser"));
+			user=userService.getUserByUserName(user);
+			if(user!=null&&"2".equals(user.getRoleID())){
+				request.getSession().setAttribute("user", user);
+				modelMap.put("role", "suggestion_admin");
+				long suggestiomCount=suggestionService.queryCount(new Suggestion());
+				frontUser.put("role", "suggestion_admin");
+				frontUser.put("suggestion_count", suggestiomCount);
+			}else{
+				frontUser.remove("role");
+				frontUser.remove("suggestion_count");
+//				request.getSession().removeAttribute("user");
+			}
+		}
 		return new ModelAndView("/front/index", modelMap);
 	}
 	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
@@ -116,5 +135,12 @@ public class FrontController {
 			request.getSession().setAttribute("frontUser", map);
 		}
 		return JsonUtil.jsonFromObject(modelMap);
+	}
+	
+	@RequestMapping(value = "/logout")
+	@ResponseBody
+	public String logout(ModelMap modelMap,HttpServletRequest request) throws Exception {
+		request.getSession().removeAttribute("frontUser");
+		return "{\"success\":true}";
 	}
 }
